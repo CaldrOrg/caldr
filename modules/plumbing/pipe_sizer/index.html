@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Caldr – Pipe Sizer</title>
+  <link rel="stylesheet" href="../../../assets/caldr-main.css" />
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: #f4f7fa;
+      margin: 0;
+      padding: 0 2rem;
+    }
+    .caldr-container {
+      background-color: #ffffff;
+      margin: 2rem auto;
+      padding: 2rem;
+      max-width: 900px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+    form {
+      padding: 1.2rem 0 0 0;
+      margin-top: 0.3rem;
+      margin-bottom: 0.8rem;
+    }
+    label {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+      display: block;
+      color: #34495e;
+    }
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .header-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0 1rem 0;
+      border-bottom: 1px solid #ccc;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .header-row img.caldr-logo {
+      height: 72px;
+      object-fit: contain;
+    }
+    .header-text {
+      flex-grow: 1;
+    }
+    .header-text h1 {
+      font-weight: 700;
+      font-size: 2rem;
+      margin: 0;
+      color: #2a80c9;
+      letter-spacing: -1px;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .header-text .subtitle {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: #444;
+      margin-top: 0.15rem;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .project-info-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .project-info-row .input-group {
+      flex: 1 1 230px;
+      min-width: 220px;
+      max-width: 340px;
+    }
+    .button-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .button-row button {
+      font-size: 1rem;
+      padding: 10px 18px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      font-family: 'Inter', Arial, sans-serif;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+      background-color: #3498db;
+      color: white;
+    }
+    .button-row button:hover {
+      background-color: #2980b9;
+    }
+    .button-row button.export-btn,
+    .button-row button.import-btn {
+      background-color: #2ecc71;
+      border-color: #27ae60;
+    }
+    .button-row button.export-btn:hover,
+    .button-row button.import-btn:hover {
+      background-color: #27ae60;
+    }
+    .button-row button.return-btn {
+      background-color: #eee;
+      color: #333;
+      border-color: #ccc;
+    }
+    .button-row button.return-btn:hover {
+      background-color: #ddd;
+    }
+    .button-row button.print-btn {
+      background-color: #f39c12;
+      border-color: #d68910;
+    }
+    .button-row button.print-btn:hover {
+      background-color: #d68910;
+    }
+    .module-main {
+      display: flex;
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto 2rem auto;
+      flex-wrap: wrap;
+    }
+    .module-main > div.form-container {
+      flex: 1 1 400px;
+      min-width: 280px;
+    }
+    .module-main > div.summary-container {
+      flex: 1 1 300px;
+      min-width: 280px;
+      background: #ecf0f1;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      color: #34495e;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 220px;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    #result {
+      font-weight: 700;
+      font-size: 1.4rem;
+      background: #ecf0f1;
+      padding: 1rem 1.2rem;
+      border-radius: 4px;
+      color: #2c3e50;
+      min-height: 2.1em;
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    #calculatedSizeInline {
+      font-size: 1rem;
+      color: #555;
+      margin-top: 0;
+      margin-bottom: 0.7rem;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    #flowEcho {
+      font-size: 1.05rem;
+      color: #555;
+      background: #f8f9fa;
+      border-radius: 3px;
+      padding: 0.5rem 0.7rem;
+      min-height: 1.5em;
+      display: flex;
+      align-items: center;
+      visibility: visible;
+      margin-bottom: 1rem;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    #formulaBtn {
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      margin-bottom: 1.2rem;
+      align-self: flex-start;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    #formulaExplanation {
+      margin-top: 1.2rem;
+      padding: 1rem;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: 'Georgia', serif;
+      font-size: 0.95rem;
+      color: #333;
+    }
+    #disclaimer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #888;
+      margin-top: 1.4rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      .header-row,
+      #disclaimer,
+      .caldr-container h2,
+      #result,
+      #flowEcho {
+        display: block !important;
+        visibility: visible !important;
+        color: black !important;
+      }
+      img.caldr-logo {
+        height: 60px !important;
+        display: block !important;
+        margin-bottom: 1rem;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+        background-color: white !important;
+      }
+      h1, h2, p, div {
+        color: black !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div style="display: flex; align-items: center; gap: 22px; margin-bottom: 10px;">
+    <img src="../../../assets/caldr-logo.png" alt="Caldr Logo" class="caldr-logo no-print" style="height: 84px; object-fit: contain;" />
+    <div>
+      <h1 style="margin: 0; font-size: 2rem; font-weight: 700; letter-spacing: -1px;">
+        Caldr: <span class="highlighted-title" style="color: #2a80c9;">Pipe Sizer</span>
+      </h1>
+      <div style="font-size: 1.05rem; font-weight: 400; color: #444;">Domestic water pipe sizing based on GPM and pipe material</div>
+    </div>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid #ccc; margin: 10px 0 18px 0;">
+
+  <div style="margin-bottom: 18px;">
+    <button class="return-button no-print" onclick="location.href='../../../menu.html'" style="padding: 10px 18px; font-size: 1rem;">← Return to Menu</button>
+  </div>
+
+  <div class="caldr-project-info-row" style="display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 18px;">
+    <div class="input-group" style="flex: 1 1 230px; min-width: 220px; max-width: 340px;">
+      <label for="projectName" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 4px;">Project Name</label>
+      <input type="text" id="projectName" placeholder="Enter project name" style="width: 100%; padding: 8px; font-size: 1rem;" />
+    </div>
+    <div class="input-group" style="flex: 1 1 180px; min-width: 150px; max-width: 220px;">
+      <label for="projectNumber" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 4px;">Project Number</label>
+      <input type="text" id="projectNumber" placeholder="0000" value="0000" style="width: 100%; padding: 8px; font-size: 1rem;" />
+    </div>
+    <div class="input-group" style="flex: 1 1 180px; min-width: 150px; max-width: 220px;">
+      <label for="projectDate" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 4px;">Date</label>
+      <input type="text" id="projectDate" placeholder="MM/DD/YYYY" style="width: 100%; padding: 8px; font-size: 1rem;" />
+    </div>
+    <div class="input-group" style="flex: 1 1 230px; min-width: 220px; max-width: 340px;">
+      <label for="designerName" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 4px;">Designer/Engineer</label>
+      <input type="text" id="designerName" placeholder="Enter name" style="width: 100%; padding: 8px; font-size: 1rem;" />
+    </div>
+  </div>
+
+  <div style="margin-bottom: 24px;">
+    <button class="no-print" onclick="window.print()" style="padding: 10px 18px; font-size: 1rem;">🖨️ Print</button>
+  </div>
+
+  <div class="caldr-container fixture-body-row">
+    <div class="fixture-body-form">
+      <form id="pipeSizerForm" novalidate>
+        <label for="flowRate">Flow Rate (GPM):</label>
+        <input
+          type="number"
+          id="flowRate"
+          name="flowRate"
+          value="0"
+          min="0"
+          step="0.1"
+          placeholder="Enter GPM"
+          required
+        />
+        <label for="pipeMaterial">Pipe Material:</label>
+        <select id="pipeMaterial" name="pipeMaterial">
+          <option value="Copper Type L">Copper Type L</option>
+          <option value="Copper Type K">Copper Type K</option>
+          <option value="PVC SCH 40">PVC SCH 40</option>
+          <option value="PEX">PEX</option>
+        </select>
+        <button type="submit" style="margin-top: 1rem;">Calculate</button>
+      </form>
+    </div>
+    <div class="fixture-summary" aria-live="polite" aria-atomic="true">
+      <div class="fixture-summary-title">Calculated Pipe Size:</div>
+      <div id="result" role="region" aria-live="polite" aria-atomic="true"></div>
+      <div id="calculatedSizeInline"></div>
+      <div id="flowEcho"></div>
+      <button id="formulaBtn" class="fixture-summary-btn">📘 Formula</button>
+      <div id="formulaExplanation">
+        <strong>Pipe Size Determination:</strong><br />
+        Based on GPM input compared to standard sizing thresholds<br />
+        <div id="formulaSteps" style="margin-top: 0.5rem; font-size: 0.9rem;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="disclaimer" class="fixture-disclaimer">
+    This tool is for reference only. All calculations and outputs must be reviewed and approved by the project engineer or EOR prior to use in construction documents. Caldr assumes no responsibility for the accuracy or suitability of results.
+  </div>
+
+  <div id="formulaModal" class="no-print" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); background:#fff; padding:1.5rem; box-shadow:0 0 10px rgba(0,0,0,0.3); max-width:500px; z-index:999; border-radius:8px;">
+    <h3 style="margin-top:0;">📘 Sizing Formula</h3>
+    <p id="formulaBreakdown" style="font-size: 0.95rem; line-height: 1.5;"></p>
+    <div style="text-align:right; margin-top:1rem;">
+      <button onclick="document.getElementById('formulaModal').style.display='none';" style="padding:6px 12px;">Close</button>
+    </div>
+  </div>
+
+  <script src="./pipe_sizer.js"></script>
+  <script>
+    // Ensure result and flowEcho are visible and display calculated values
+    document.addEventListener('DOMContentLoaded', function () {
+      const pipeSizerForm = document.getElementById('pipeSizerForm');
+      const resultDiv = document.getElementById('result');
+      const flowEchoDiv = document.getElementById('flowEcho');
+
+      // Example pipe size calculation logic
+      function calculatePipeSize(gpm, material) {
+        // Dummy logic for demonstration; replace with real calculation
+        if (gpm <= 0) return '';
+        if (gpm < 4) return '1/2" ' + material;
+        if (gpm < 8) return '3/4" ' + material;
+        if (gpm < 14) return '1" ' + material;
+        if (gpm < 25) return '1-1/4" ' + material;
+        if (gpm < 40) return '1-1/2" ' + material;
+        return '2" ' + material;
+      }
+
+      pipeSizerForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const gpm = parseFloat(document.getElementById('flowRate').value);
+        const material = document.getElementById('pipeMaterial').value;
+        const pipeSize = calculatePipeSize(gpm, material);
+        if (pipeSize) {
+          resultDiv.textContent = pipeSize;
+          resultDiv.style.visibility = 'visible';
+          document.getElementById('calculatedSizeInline').textContent = pipeSize;
+        } else {
+          resultDiv.textContent = 'Please enter a valid flow rate.';
+          resultDiv.style.visibility = 'visible';
+          document.getElementById('calculatedSizeInline').textContent = '';
+        }
+        flowEchoDiv.textContent = isNaN(gpm) || gpm <= 0 ? '' : `Flow Rate: ${gpm} GPM`;
+        flowEchoDiv.style.visibility = 'visible';
+        displayFormulaSteps(gpm, pipeSize);
+      });
+
+      function displayFormulaSteps(gpm, pipeSize) {
+        const sizeOnly = pipeSize.split(' ')[0];
+        let tier = '';
+        if (gpm < 4) tier = '&lt; 4 → 1/2&quot;';
+        else if (gpm < 8) tier = '&lt; 8 → 3/4&quot;';
+        else if (gpm < 14) tier = '&lt; 14 → 1&quot;';
+        else if (gpm < 25) tier = '&lt; 25 → 1-1/4&quot;';
+        else if (gpm < 40) tier = '&lt; 40 → 1-1/2&quot;';
+        else tier = '≥ 40 → 2&quot;';
+
+        const stepHtml = `
+          • GPM input = <strong>${gpm}</strong><br />
+          • GPM falls within: <strong>${tier}</strong><br />
+          • Therefore, suggested pipe size = <strong>${sizeOnly}</strong>
+        `;
+        document.getElementById('formulaSteps').innerHTML = stepHtml;
+      }
+
+      // Formula breakdown modal function
+      function showFormulaBreakdown(gpm, material, pipeSize) {
+        const formulaExample = `Example formula by standard (hypothetical):\nPipe Size = f(GPM, Material)\nWhere thresholds are:\n• < 4 GPM = 1/2"\n• < 8 GPM = 3/4"\n• < 14 GPM = 1"\n• < 25 GPM = 1-1/4"\n• < 40 GPM = 1-1/2"\n• ≥ 40 GPM = 2"`;
+        const userInput = `\n\nYour Input:\n• GPM = ${gpm}\n• Material = ${material}\n\nBreakdown:\n• GPM = ${gpm} → falls under '${pipeSize.split(" ")[0]}' range\n• Therefore, recommended Pipe Size = ${pipeSize}`;
+        document.getElementById('formulaBreakdown').textContent = formulaExample + userInput;
+        document.getElementById('formulaModal').style.display = 'block';
+      }
+
+      // Formula button event handler
+      document.getElementById('formulaBtn').addEventListener('click', function () {
+        const gpm = parseFloat(document.getElementById('flowRate').value);
+        const material = document.getElementById('pipeMaterial').value;
+        const pipeSize = document.getElementById('result').textContent;
+        if (!pipeSize || isNaN(gpm) || gpm <= 0) {
+          alert('Please calculate a valid result first.');
+          return;
+        }
+        showFormulaBreakdown(gpm, material, pipeSize);
+      });
+
+      // Export button functionality
+      document.getElementById('exportBtn').addEventListener('click', function () {
+        const data = {
+          projectName: document.getElementById('projectName').value,
+          projectNumber: document.getElementById('projectNumber').value,
+          projectDate: document.getElementById('projectDate').value,
+          designerName: document.getElementById('designerName').value,
+          flowRate: document.getElementById('flowRate').value,
+          pipeMaterial: document.getElementById('pipeMaterial').value,
+          calculatedSize: document.getElementById('result').textContent
+        };
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href",     dataStr);
+        downloadAnchorNode.setAttribute("download", "pipe_sizer_data.json");
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+      });
+
+      // Import button functionality
+      document.getElementById('importBtn').addEventListener('click', function () {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json,application/json';
+        input.onchange = e => {
+          const file = e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = event => {
+            try {
+              const data = JSON.parse(event.target.result);
+              if (data.projectName !== undefined) document.getElementById('projectName').value = data.projectName;
+              if (data.projectNumber !== undefined) document.getElementById('projectNumber').value = data.projectNumber;
+              if (data.projectDate !== undefined) document.getElementById('projectDate').value = data.projectDate;
+              if (data.designerName !== undefined) document.getElementById('designerName').value = data.designerName;
+              if (data.flowRate !== undefined) document.getElementById('flowRate').value = data.flowRate;
+              if (data.pipeMaterial !== undefined) document.getElementById('pipeMaterial').value = data.pipeMaterial;
+              if (data.flowRate !== undefined && data.pipeMaterial !== undefined) {
+                const pipeSize = calculatePipeSize(parseFloat(data.flowRate), data.pipeMaterial);
+                if (pipeSize) {
+                  resultDiv.textContent = pipeSize;
+                  resultDiv.style.visibility = 'visible';
+                  document.getElementById('calculatedSizeInline').textContent = pipeSize;
+                  flowEchoDiv.textContent = `Flow Rate: ${data.flowRate} GPM`;
+                  flowEchoDiv.style.visibility = 'visible';
+                  displayFormulaSteps(parseFloat(data.flowRate), pipeSize);
+                }
+              }
+            } catch (err) {
+              alert('Invalid JSON file.');
+            }
+          };
+          reader.readAsText(file);
+        };
+        input.click();
+      });
+    });
+
+  </script>
+</body>
+</html>

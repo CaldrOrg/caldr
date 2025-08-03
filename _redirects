@@ -1,0 +1,15 @@
+/login       /login.html     200
+/menu        /menu.html      200
+/modules/*   /modules/:splat 200
+/*           /index.html     200
+
+/fixture-count.html            /modules/fixture_count/index.html   200
+/pipe-sizer.html               /modules/pipe_sizer/index.html      200
+/wsfu-dfu-gpm.html             /modules/dfu_sfu_to_gpm/index.html  200
+/dfu-to-gpm.html                /modules/dfu_sfu_to_gpm/index.html  200
+/modules/dfu_sfu_to_gpm/dfu-to-gpm.html  /modules/dfu_sfu_to_gpm/index.html  200
+/booster-pump.html             /modules/booster_pump/index.html    200
+/medical-gas.html              /modules/medical_gas/index.html     200
+/sanitary-drainage.html        /modules/sanitary_drainage/index.html 200
+/storm-drainage.html           /modules/storm_drainage/index.html  200
+/water-heater-sizer.html       /modules/water_heater_sizer/index.html 200

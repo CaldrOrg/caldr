@@ -1,0 +1,129 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2c3e50">Plumbing Calculation Module Icons</text>
+  
+  <!-- Icon 1: Domestic Water Calculations -->
+  <g transform="translate(50, 80)">
+    <circle cx="40" cy="40" r="35" fill="#3498db" stroke="#2c3e50" stroke-width="2"/>
+    <path d="M25 35 Q40 25 55 35 Q40 45 25 35" fill="white"/>
+    <circle cx="30" cy="30" r="2" fill="#2c3e50"/>
+    <circle cx="50" cy="30" r="2" fill="#2c3e50"/>
+    <path d="M20 50 L60 50" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    <text x="40" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Domestic Water</text>
+    <text x="40" y="107" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Calculations</text>
+  </g>
+  
+  <!-- Icon 2: Fire Protection -->
+  <g transform="translate(150, 80)">
+    <circle cx="40" cy="40" r="35" fill="#e74c3c" stroke="#2c3e50" stroke-width="2"/>
+    <path d="M40 20 Q30 25 35 35 Q40 30 45 35 Q50 25 40 20" fill="white"/>
+    <rect x="35" y="50" width="10" height="8" fill="white"/>
+    <rect x="25" y="25" width="30" height="4" fill="white"/>
+    <circle cx="32" cy="27" r="1.5" fill="#e74c3c"/>
+    <circle cx="40" cy="27" r="1.5" fill="#e74c3c"/>
+    <circle cx="48" cy="27" r="1.5" fill="#e74c3c"/>
+    <text x="40" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Fire Protection</text>
+  </g>
+  
+  <!-- Icon 3: Medical Gas -->
+  <g transform="translate(250, 80)">
+    <circle cx="40" cy="40" r="35" fill="#2ecc71" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="35" y="25" width="10" height="30" rx="5" fill="white"/>
+    <rect x="25" y="35" width="30" height="10" rx="5" fill="white"/>
+    <circle cx="40" cy="40" r="8" fill="#2ecc71"/>
+    <path d="M35 35 L45 35 M40 30 L40 50" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <text x="40" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Medical Gas</text>
+  </g>
+  
+  <!-- Icon 4: Storm Leader and Main Sizer -->
+  <g transform="translate(350, 80)">
+    <circle cx="40" cy="40" r="35" fill="#9b59b6" stroke="#2c3e50" stroke-width="2"/>
+    <path d="M25 25 L35 35 L30 40 L45 55 L50 50 L55 55 L40 40 L45 35 L35 25 Z" fill="white"/>
+    <circle cx="30" cy="30" r="2" fill="#9b59b6"/>
+    <circle cx="50" cy="50" r="2" fill="#9b59b6"/>
+    <path d="M20 55 Q40 45 60 55" stroke="white" stroke-width="2" fill="none"/>
+    <text x="40" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Storm Leader</text>
+    <text x="40" y="107" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Main Sizer</text>
+  </g>
+  
+  <!-- Icon 5: Roof Drain Calculations -->
+  <g transform="translate(50, 200)">
+    <circle cx="40" cy="40" r="35" fill="#34495e" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="20" y="20" width="40" height="5" fill="white"/>
+    <circle cx="40" cy="40" r="8" fill="white"/>
+    <circle cx="40" cy="40" r="4" fill="#34495e"/>
+    <path d="M32 40 Q40 50 48 40" stroke="white" stroke-width="2" fill="none"/>
+    <path d="M35 45 Q40 50 45 45" stroke="white" stroke-width="1" fill="none"/>
+    <path d="M37 50 Q40 55 43 50" stroke="white" stroke-width="1" fill="none"/>
+    <text x="40" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Roof Drain</text>
+    <text x="40" y="107" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Calculations</text>
+  </g>
+  
+  <!-- Icon 6: Water Heater Sizing -->
+  <g transform="translate(150, 200)">
+    <circle cx="40" cy="40" r="35" fill="#f39c12" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="25" y="25" width="30" height="30" rx="3" fill="white"/>
+    <rect x="30" y="30" width="20" height="20" rx="2" fill="#f39c12"/>
+    <path d="M32 35 L38 35 M32 40 L38 40 M32 45 L38 45" stroke="white" stroke-width="1.5"/>
+    <path d="M42 35 Q45 32 48 35 Q45 38 42 35" fill="white"/>
+    <path d="M42 45 Q45 42 48 45 Q45 48 42 45" fill="white"/>
+    <circle cx="35" cy="20" r="2" fill="#e67e22"/>
+    <text x="40" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Water Heater</text>
+    <text x="40" y="107" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Sizing</text>
+  </g>
+  
+  <!-- Icon 7: Booster Pump -->
+  <g transform="translate(250, 200)">
+    <circle cx="40" cy="40" r="35" fill="#1abc9c" stroke="#2c3e50" stroke-width="2"/>
+    <circle cx="40" cy="40" r="15" fill="white"/>
+    <circle cx="40" cy="40" r="8" fill="#1abc9c"/>
+    <path d="M35 35 L40 30 L45 35 L40 40 Z" fill="white"/>
+    <rect x="20" y="37" width="15" height="6" fill="white"/>
+    <rect x="45" y="37" width="15" height="6" fill="white"/>
+    <path d="M25 30 Q40 25 55 30" stroke="white" stroke-width="2" fill="none"/>
+    <path d="M25 50 Q40 55 55 50" stroke="white" stroke-width="2" fill="none"/>
+    <text x="40" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Booster Pump</text>
+  </g>
+  
+  <!-- Icon 8: DFU to SFU -->
+  <g transform="translate(350, 200)">
+    <circle cx="40" cy="40" r="35" fill="#e67e22" stroke="#2c3e50" stroke-width="2"/>
+    <rect x="20" y="35" width="40" height="10" fill="white"/>
+    <text x="28" y="43" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e67e22">DFU</text>
+    <path d="M35 40 L40 35 L45 40" stroke="#e67e22" stroke-width="2" fill="none"/>
+    <text x="52" y="43" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e67e22">SFU</text>
+    <circle cx="25" cy="25" r="3" fill="white"/>
+    <circle cx="40" cy="25" r="3" fill="white"/>
+    <circle cx="55" cy="25" r="3" fill="white"/>
+    <circle cx="25" cy="55" r="3" fill="white"/>
+    <circle cx="40" cy="55" r="3" fill="white"/>
+    <circle cx="55" cy="55" r="3" fill="white"/>
+    <text x="40" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">DFU to SFU</text>
+  </g>
+  
+  <!-- Usage Instructions -->
+  <text x="50" y="350" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">Usage Instructions:</text>
+  <text x="50" y="370" font-family="Arial, sans-serif" font-size="11" fill="#34495e">• Each icon is designed as a scalable SVG for web use</text>
+  <text x="50" y="385" font-family="Arial, sans-serif" font-size="11" fill="#34495e">• Icons maintain readability at various sizes (24px to 128px recommended)</text>
+  <text x="50" y="400" font-family="Arial, sans-serif" font-size="11" fill="#34495e">• Color scheme matches professional engineering software aesthetics</text>
+  <text x="50" y="415" font-family="Arial, sans-serif" font-size="11" fill="#34495e">• Each icon can be extracted as individual SVG files for web implementation</text>
+  <text x="50" y="430" font-family="Arial, sans-serif" font-size="11" fill="#34495e">• Icons are optimized for both light and dark backgrounds</text>
+  
+  <!-- Color Palette Reference -->
+  <text x="50" y="460" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">Color Palette:</text>
+  <circle cx="70" cy="480" r="8" fill="#3498db"/>
+  <text x="85" y="485" font-family="Arial, sans-serif" font-size="10" fill="#34495e">Blue - Water Systems</text>
+  <circle cx="200" cy="480" r="8" fill="#e74c3c"/>
+  <text x="215" y="485" font-family="Arial, sans-serif" font-size="10" fill="#34495e">Red - Fire Protection</text>
+  <circle cx="320" cy="480" r="8" fill="#2ecc71"/>
+  <text x="335" y="485" font-family="Arial, sans-serif" font-size="10" fill="#34495e">Green - Medical Gas</text>
+  <circle cx="70" cy="500" r="8" fill="#9b59b6"/>
+  <text x="85" y="505" font-family="Arial, sans-serif" font-size="10" fill="#34495e">Purple - Storm Systems</text>
+  <circle cx="200" cy="500" r="8" fill="#f39c12"/>
+  <text x="215" y="505" font-family="Arial, sans-serif" font-size="10" fill="#34495e">Orange - Heating</text>
+  <circle cx="320" cy="500" r="8" fill="#1abc9c"/>
+  <text x="335" y="505" font-family="Arial, sans-serif" font-size="10" fill="#34495e">Teal - Pumps</text>
+</svg>

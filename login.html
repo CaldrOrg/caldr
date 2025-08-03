@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Caldr Login</title>
+  <link rel="preload" href="styles/styles.css" as="style">
+  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    body.login-page {
+      background-color: #f5f6fa;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+    .login-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .login-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .login-input {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      font-size: 16px;
+    }
+    .login-button {
+      display: block;
+      width: 100%;
+      padding: 0.6rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="login-page">
+  <div class="login-wrapper" style="flex-direction: column;">
+    <img src="assets/caldr-logo.png" alt="Caldr Logo" style="height: 100px; margin-bottom: 20px;" />
+    <div class="login-box">
+      <h1 class="login-title">Login</h1>
+      <form id="login-form">
+        <input type="text" id="username" placeholder="Username" class="login-input" />
+        <input type="password" id="password" placeholder="Password" class="login-input" />
+        <button type="submit" class="login-button">Login</button>
+      </form>
+    </div>
+  </div>
+  <script src="auth.js"></script>
+</body>
+</html>

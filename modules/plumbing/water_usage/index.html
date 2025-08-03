@@ -1,0 +1,153 @@
+
+<div style="display: flex; align-items: center; gap: 22px; margin-bottom: 10px;">
+  <img src="../../assets/caldr-logo.png" alt="Caldr Logo" class="caldr-logo no-print" style="height: 84px; object-fit: contain;" />
+  <div>
+    <h1 style="margin: 0; font-size: 2rem; font-weight: 700; letter-spacing: -1px;">
+      <span class="highlighted-title" style="color: #2a80c9;">Water Usage</span>
+    </h1>
+    <div style="font-size: 1.05rem; font-weight: 400; color: #444;">Daily Demand Input Tool</div>
+  </div>
+</div>
+
+<hr style="border: none; border-top: 2px solid #ccc; margin: 10px 0 18px 0;">
+
+<div style="margin-bottom: 18px;">
+  <button class="return-button no-print" onclick="location.href='../../menu.html'" style="padding: 10px 18px; font-size: 1rem;">← Return to Menu</button>
+</div>
+
+<div class="caldr-project-info-row" style="display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 18px;">
+  <div class="input-group" style="flex: 1 1 230px; min-width: 220px; max-width: 340px;">
+    <label for="projectName" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 4px;">Project Name</label>
+    <input type="text" id="projectName" placeholder="Enter project name" style="width: 100%; padding: 8px; font-size: 1rem;" />
+  </div>
+  <div class="input-group" style="flex: 1 1 180px; min-width: 150px; max-width: 220px;">
+    <label for="projectNumber" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 4px;">Project Number</label>
+    <input type="text" id="projectNumber" placeholder="0000" value="0000" style="width: 100%; padding: 8px; font-size: 1rem;" />
+  </div>
+  <div class="input-group" style="flex: 1 1 180px; min-width: 150px; max-width: 220px;">
+    <label for="date" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 4px;">Date</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY" style="width: 100%; padding: 8px; font-size: 1rem;" />
+  </div>
+  <div class="input-group" style="flex: 1 1 230px; min-width: 220px; max-width: 340px;">
+    <label for="designerName" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 4px;">Designer/Engineer</label>
+    <input type="text" id="designerName" placeholder="Enter name" style="width: 100%; padding: 8px; font-size: 1rem;" />
+  </div>
+</div>
+
+<div style="margin-bottom: 24px;">
+  <button class="no-print" onclick="window.print()" style="padding: 10px 18px; font-size: 1rem;">🖨️ Print</button>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; margin-top: 32px; margin-bottom: 24px;">
+  <!-- Input Column -->
+  <div style="flex: 1 1 50%; min-width: 320px;">
+    <h2 style="font-size: 1.4rem; margin-bottom: 16px;">Daily Water Usage Inputs</h2>
+    <div style="display: flex; flex-direction: column; gap: 12px; max-width: 540px;">
+
+      <!-- Hospitals -->
+      <h3 style="margin-bottom: 6px;">Hospitals</h3>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Beds</label>
+        <input type="number" id="hospitalBeds" placeholder="e.g. 450" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Mechanical (Cooling Towers)</label>
+        <input type="number" id="mechanicalUse" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Irrigation</label>
+        <input type="number" id="irrigationUse" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Sterile Processing</label>
+        <input type="number" id="sterileUse" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Kitchen</label>
+        <input type="number" id="kitchenUse" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Day Shift Staff</label>
+        <input type="number" id="dayShiftStaff" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Second Shift Staff</label>
+        <input type="number" id="secondShiftStaff" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Night Shift Staff</label>
+        <input type="number" id="nightShiftStaff" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Visitors</label>
+        <input type="number" id="visitors" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <input type="text" placeholder="Custom" maxlength="25" style="min-width: 240px; font-size: 1rem;" />
+        <input type="number" id="customVisitorsUse" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+
+      <!-- Dorms -->
+      <h3 style="margin-top: 24px;">Dormitory Students</h3>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Students</label>
+        <input type="number" id="dormStudents" placeholder="e.g. 300" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <input type="text" placeholder="Custom" maxlength="25" style="min-width: 240px; font-size: 1rem;" />
+        <input type="number" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+
+      <!-- Hotels -->
+      <h3 style="margin-top: 24px;">Hotels</h3>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Beds</label>
+        <input type="number" id="hotelBeds" placeholder="e.g. 80" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Day Shift Staff</label>
+        <input type="number" id="hotelDayShift" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Second Shift Staff</label>
+        <input type="number" id="hotelSecondShift" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Night Shift Staff</label>
+        <input type="number" id="hotelNightShift" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <input type="text" placeholder="Custom" maxlength="25" style="min-width: 240px; font-size: 1rem;" />
+        <input type="number" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+
+      <!-- Assembly -->
+      <h3 style="margin-top: 24px;">Assembly Events</h3>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <label style="min-width: 240px;">Attendees</label>
+        <input type="number" id="assemblyEvents" placeholder="e.g. 200" style="width: 140px;" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <input type="text" placeholder="Custom" maxlength="25" style="min-width: 240px; font-size: 1rem;" />
+        <input type="number" placeholder="e.g. 0" style="width: 140px;" />
+      </div>
+
+      <!-- Button -->
+      <div style="margin-top: 18px;">
+        <button onclick="calculateWaterUsage()" style="padding: 10px 16px; font-size: 1rem;">💧 Calculate Daily Water Usage</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calculation Output Area (unchanged) -->
+  <div style="flex: 1 1 35%; display: flex; flex-direction: column; gap: 12px;">
+    <h3 style="margin: 0 0 8px 0; font-size: 1.3rem;">Calculation Result</h3>
+    <div id="calculationResult" style="border: 1px solid #ccc; background: #f3f7fa; padding: 14px; font-size: 1.05rem; min-height: 48px;"></div>
+    <button id="toggleFormulaBtn" class="no-print" style="padding: 8px 14px; font-size: 0.95rem;">📘 Formula</button>
+    <div id="formulaBox" style="display: none; background: #eef4fc; padding: 12px; border: 1px dashed #2a80c9; font-size: 0.95rem;"></div>
+    <div style="border: 1px solid #ccc; padding: 12px; font-size: 0.95rem; background: #fdfdfd;">
+      <strong>Water Use Calculation:</strong><br>
+      CW/HW determined based on occupancy type and typical demand standards per day.
+    </div>
+  </div>
+</div>

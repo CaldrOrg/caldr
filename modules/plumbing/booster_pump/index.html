@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booster Pump</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+
+
+<div style="display: flex; align-items: center; gap: 22px; margin-bottom: 10px;">
+  <img src="../../../assets/caldr-logo.png" alt="Caldr Logo" class="caldr-logo no-print" style="height: 84px; object-fit: contain;" />
+  <div>
+    <h1 style="margin: 0; font-size: 2rem; font-weight: 700; letter-spacing: -1px;">
+      Caldr: <span class="highlighted-title" style="color: #c65100;">Booster Pump Sizer</span>
+    </h1>
+    <div style="font-size: 1.05rem; font-weight: 400; color: #444;">Booster Pump module with standard Caldr layout</div>
+  </div>
+</div>
+
+<hr style="border: none; border-top: 2px solid #ccc; margin: 10px 0 18px 0;">
+
+<div style="margin-bottom: 18px;">
+  <button class="return-button no-print" onclick="location.href='../../../menu.html'" style="padding: 10px 18px; font-size: 1rem;">← Return to Menu</button>
+</div>
+
+<div class="caldr-project-info-row" style="display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 18px;">
+  <div class="input-group" style="flex: 1 1 230px; min-width: 220px; max-width: 340px;">
+    <label for="projectName" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 4px;">Project Name</label>
+    <input type="text" id="projectName" placeholder="Enter project name" style="width: 100%; padding: 8px; font-size: 1rem;" />
+  </div>
+  <div class="input-group" style="flex: 1 1 180px; min-width: 150px; max-width: 220px;">
+    <label for="projectNumber" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 4px;">Project Number</label>
+    <input type="text" id="projectNumber" placeholder="0000" value="0000" style="width: 100%; padding: 8px; font-size: 1rem;" />
+  </div>
+  <div class="input-group" style="flex: 1 1 180px; min-width: 150px; max-width: 220px;">
+    <label for="date" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 4px;">Date</label>
+    <input type="text" id="date" placeholder="MM/DD/YYYY" style="width: 100%; padding: 8px; font-size: 1rem;" />
+  </div>
+  <div class="input-group" style="flex: 1 1 230px; min-width: 220px; max-width: 340px;">
+    <label for="designerName" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 4px;">Designer/Engineer</label>
+    <input type="text" id="designerName" placeholder="Enter name" style="width: 100%; padding: 8px; font-size: 1rem;" />
+  </div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 12px;">
+  <button class="export-button" onclick="exportModule()" style="padding: 10px 18px; font-size: 1rem;">
+    💾 Export This Module
+  </button>
+  <input type="file" id="importFileInput" style="display:none;" onchange="importModule()" />
+  <button class="import-button" onclick="document.getElementById('importFileInput').click()" style="padding: 10px 18px; font-size: 1rem;">
+    📂 Import Module File
+  </button>
+  <button onclick="window.print()" style="padding: 10px 18px; font-size: 1rem;">
+    🖨️ Print
+  </button>
+</div>
+
+<div class="input-group" style="margin-bottom: 28px; max-width: 360px;">
+  <label for="pumpNumber" style="font-weight: 600; font-size: 1.05rem; margin-bottom: 6px; display: block;">Pump No.</label>
+  <input type="text" id="pumpNumber" placeholder="Enter pump number" style="width: 100%; padding: 8px; font-size: 1rem;" />
+</div>
+
+
+<!-- BOOSTER PUMP INPUT FORM - CALDR STANDARDIZED -->
+<form id="boosterPumpForm" style="margin-top: 20px;">
+  <div style="display: flex; flex-direction: column; gap: 32px;">
+    <div style="display: flex; gap: 10px;">
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+        <h3 style="margin-bottom: 6px; font-size: 1.1rem; font-weight: 700;">Project Input</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="gpmDemand" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Total Domestic Water Demand (GPM)</label>
+            <input type="number" id="gpmDemand" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="streetPressure" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Pressure in Street Main (PSI)</label>
+            <input type="number" id="streetPressure" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="tapPressureDrop" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Tap to Main Drop (PSI)</label>
+            <input type="number" id="tapPressureDrop" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="futurePressureAllowance" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Future Pressure Allowance (PSI)</label>
+            <input type="number" id="futurePressureAllowance" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="boosterHeight" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Height Above Street (ft)</label>
+            <input type="number" id="boosterHeight" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="backflowFrictionLoss" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Backflow Preventer Friction Loss (PSI)</label>
+            <input type="number" id="backflowFrictionLoss" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="highestFixtureAbovePump" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Highest Fixture Above Booster Pump (ft)</label>
+            <input type="number" id="highestFixtureAbovePump" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="longestRunPiping" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Longest Run of Piping in Building (ft)</label>
+            <input type="number" id="longestRunPiping" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="frictionLossFittings" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Friction Loss in Fittings (%)</label>
+            <input type="number" id="frictionLossFittings" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="minPressureFixtures" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Minimum Pressure to Operate Fixtures (PSI)</label>
+            <input type="number" id="minPressureFixtures" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <!-- New field: Suction Friction Losses Inside Bldg (PSI) -->
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="suctionFrictionLoss" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Suction Friction Losses Inside Bldg (PSI)</label>
+            <input type="number" id="suctionFrictionLoss" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+        </div>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 12px;">
+        <h3 style="margin-bottom: 6px; font-size: 1.1rem; font-weight: 700;">Friction Losses</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="pipeSize" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Pipe Size (in)</label>
+            <input type="number" id="pipeSize" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="cValue" style="width: 160px; font-weight: 600; font-size: 0.95rem;">C-Value of Pipe</label>
+            <input type="number" id="cValue" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="tapDistance" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Tap Distance to Booster (ft)</label>
+            <input type="number" id="tapDistance" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="externalFrictionLoss" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Friction Losses (PSI)</label>
+            <input type="number" id="externalFrictionLoss" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="otherKnownLosses" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Other Known Losses in System (PSI)</label>
+            <input type="number" id="otherKnownLosses" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="pumpControlValveLoss" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Pump Control Valve Friction Loss (PSI)</label>
+            <input type="number" id="pumpControlValveLoss" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="allowableFrictionLoss" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Allowable Friction Loss per 100' Pipe (PSI)</label>
+            <input type="number" id="allowableFrictionLoss" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <!-- New friction losses fields -->
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="allowanceFrictionLossFittings" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Allowance for Friction Loss in Fittings (%)</label>
+            <input type="number" id="allowanceFrictionLossFittings" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="minPressureToOperate" style="width: 160px; font-weight: 600; font-size: 0.95rem;">Minimum Pressure to Operate Fixtures (PSI)</label>
+            <input type="number" id="minPressureToOperate" placeholder="0" style="flex: none; padding: 2px 4px; font-size: 0.85rem; width: 80px;" />
+          </div>
+        </div>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 12px;">
+        <!-- New Booster Pump Summary block -->
+        <div style="background: #f8fafc; border: 2px solid #cfe2f3; border-radius: 12px; padding: 20px; margin-top: 40px; max-width: 480px;">
+          <h2 style="color: #b7410e; font-weight: 700; font-size: 1.6rem; margin-top: 0;">Booster Pump Summary</h2>
+          <p><strong>Total Flow Rate:</strong> <span id="summaryFlow">0</span> GPM</p>
+          <p><strong>Total Head:</strong> <span id="summaryHead">0</span> ft</p>
+          <p><strong>Recommended Pump Size:</strong> <span id="summaryPumpSize">-</span></p>
+        </div>
+
+        <button onclick="showFormula()" style="display: flex; align-items: center; gap: 8px; padding: 10px 18px; font-size: 1rem; margin-top: 20px; border: 1px solid #ccc; background: #f3f3f3; cursor: pointer;">
+          <img src="../../../assets/caldr_triangle.png" alt="Formula Icon" style="height: 20px; width: auto;" />
+          View Formula
+        </button>
+      </div>
+    </div>
+    <div>
+      <button type="button" onclick="calculateBoosterPump()" style="padding: 10px 20px; font-size: 1rem;">🔍 Calculate Booster Pump</button>
+    </div>
+    <div>
+      <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 10px;">Building Elevation Model</h3>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+        <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="floorCount" style="font-size: 0.75rem; font-weight: 600; line-height: 1.2; width: auto; min-width: 100px;">Number of Floors</label>
+            <input type="number" id="floorCount" min="1" placeholder="e.g. 5" style="width: 50px; padding: 2px; font-size: 0.8rem;" oninput="updateElevationDiagram()" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="longestRunPiping" style="font-size: 0.75rem; font-weight: 600; line-height: 1.2; width: auto; min-width: 100px;">
+              Longest Run of Piping
+              <span style="display: inline;">(ft)</span>
+            </label>
+            <input type="number" id="longestRunPiping" placeholder="0" style="width: 60px; padding: 2px; font-size: 0.8rem;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="horizontalRun" style="font-size: 0.75rem; font-weight: 600; line-height: 1.2; width: auto; min-width: 100px;">
+              Horizontal Run
+              <span style="display: inline;">(ft)</span>
+            </label>
+            <input type="number" id="horizontalRun" placeholder="0" style="width: 60px; padding: 2px; font-size: 0.8rem;" />
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="verticalRise" style="font-size: 0.75rem; font-weight: 600; line-height: 1.2; width: auto; min-width: 100px;">
+              Vertical Rise
+              <span style="display: inline;">(ft)</span>
+            </label>
+            <input type="number" id="verticalRise" placeholder="0" style="width: 60px; padding: 2px; font-size: 0.8rem;" />
+          </div>
+        </div>
+        <div id="elevationDiagram" style="border: 1px solid #ccc; background: #f9f9f9; padding: 12px; min-height: 120px;"></div>
+      </div>
+      <!-- Inserted block: Additional Pressure & Flow Inputs -->
+      <div class="input-row">
+        <div class="input-group">
+          <label for="incomingPressure">Incoming Pressure (psi)</label>
+          <input type="number" id="incomingPressure" placeholder="e.g. 50" />
+        </div>
+        <div class="input-group">
+          <label for="desiredPressure">Desired Pressure (psi)</label>
+          <input type="number" id="desiredPressure" placeholder="e.g. 60" />
+        </div>
+        <div class="input-group">
+          <label for="frictionLoss">Friction Loss per 100ft (psi)</label>
+          <input type="number" id="frictionLoss" placeholder="e.g. 4.5" />
+        </div>
+        <div class="input-group">
+          <label for="flowRate">Flow Rate (GPM)</label>
+          <input type="number" id="flowRate" placeholder="e.g. 150" />
+        </div>
+      </div>
+      <!-- End Inserted block -->
+    </div>
+  </div>
+</form>
+
+<!-- Results Output Breakdown (for formulas and breakdowns) -->
+<div id="resultsOutput" class="results-output" style="margin-top: 20px; font-size: 1rem; line-height: 1.6;"></div>
+
+
+
+<!-- LEGAL DISCLAIMER -->
+<div style="margin-top: 28px; font-size: 0.95rem; color: #555; border-top: 1px solid #ccc; padding-top: 12px;">
+  <strong>Disclaimer:</strong> This tool is intended for reference use only. All calculations and outputs generated by Caldr must be independently reviewed and verified by a licensed engineer or the engineer of record (EOR). Caldr assumes no responsibility for the accuracy, completeness, or applicability of its outputs in final designs or construction documents.
+</div>
+
+<script src="booster_pump.js"></script>
+
+<script>
+  function exportModule() {
+    const data = {
+      projectName: document.getElementById('projectName').value,
+      projectNumber: document.getElementById('projectNumber').value,
+      date: document.getElementById('date').value,
+      designerName: document.getElementById('designerName').value,
+      pumpNumber: document.getElementById('pumpNumber').value
+    };
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'booster_pump_module.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+</script>
+<script>
+  function importModule() {
+    const fileInput = document.getElementById('importFileInput');
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const contents = JSON.parse(e.target.result);
+      document.getElementById('projectName').value = contents.projectName || '';
+      document.getElementById('projectNumber').value = contents.projectNumber || '';
+      document.getElementById('date').value = contents.date || '';
+      document.getElementById('designerName').value = contents.designerName || '';
+      document.getElementById('pumpNumber').value = contents.pumpNumber || '';
+    };
+    reader.readAsText(file);
+  }
+</script>
+  function toggleFormula() {
+    const box = document.getElementById("formulaBox");
+    box.style.display = box.style.display === "none" ? "block" : "none";
+  }
+
+  function updateElevationDiagram() {
+    const floorCount = parseInt(document.getElementById('floorCount').value) || 0;
+    const container = document.getElementById('elevationDiagram');
+    container.innerHTML = "";
+
+    if (floorCount > 0) {
+      // Outer diagram: flat, table-like left-to-right row
+      const diagramWrapper = document.createElement("div");
+      diagramWrapper.style.display = "flex";
+      diagramWrapper.style.flexDirection = "row";
+      diagramWrapper.style.alignItems = "flex-end";
+      diagramWrapper.style.justifyContent = "flex-start";
+      diagramWrapper.style.position = "relative";
+      diagramWrapper.style.width = "100%";
+      diagramWrapper.style.minHeight = "140px";
+
+      // Left: vertical stack for Water Meter, Backflow, Booster
+      const serviceStack = document.createElement("div");
+      serviceStack.style.display = "flex";
+      serviceStack.style.flexDirection = "column";
+      serviceStack.style.alignItems = "flex-end";
+      serviceStack.style.justifyContent = "center";
+      serviceStack.style.gap = "12px";
+      serviceStack.style.marginRight = "32px";
+      serviceStack.style.minWidth = "140px";
+
+      function makeServiceBox(label) {
+        const box = document.createElement("div");
+        box.style.display = "flex";
+        box.style.alignItems = "center";
+        box.style.gap = "8px";
+        box.style.background = "#f1f4f7";
+        box.style.border = "1px solid #bfcdda";
+        box.style.borderRadius = "4px";
+        box.style.padding = "6px 12px";
+        box.style.fontWeight = "500";
+        box.style.fontSize = "0.92rem";
+        box.style.color = "#234";
+        box.textContent = label;
+        return box;
+      }
+      serviceStack.appendChild(makeServiceBox("Water Meter"));
+      serviceStack.appendChild(makeServiceBox("Backflow Preventer"));
+      serviceStack.appendChild(makeServiceBox("Booster"));
+
+      // Center: vertical pipe (right side of service stack)
+      const pipeCol = document.createElement("div");
+      pipeCol.style.display = "flex";
+      pipeCol.style.flexDirection = "column";
+      pipeCol.style.alignItems = "center";
+      pipeCol.style.justifyContent = "flex-end";
+      pipeCol.style.position = "relative";
+      pipeCol.style.width = "34px";
+      pipeCol.style.marginRight = "36px";
+      pipeCol.style.height = "100%";
+
+      // Level stack (right-most): vertical, top-down
+      const stack = document.createElement("div");
+      stack.style.display = "flex";
+      stack.style.flexDirection = "column";
+      stack.style.justifyContent = "flex-end";
+      stack.style.alignItems = "flex-start";
+      stack.style.gap = "6px";
+      stack.style.position = "relative";
+      stack.style.zIndex = "1";
+      stack.style.marginLeft = "0px";
+
+      // Keep references for total elevation
+      let totalElevation = 0;
+      let levelInputs = [];
+      let labelInputs = [];
+
+      // For each level, top to bottom (Level N at top)
+      for (let i = floorCount; i >= 1; i--) {
+        const row = document.createElement("div");
+        row.style.display = "flex";
+        row.style.flexDirection = "row";
+        row.style.alignItems = "center";
+        row.style.gap = "10px";
+        row.style.margin = "1px 0";
+
+        // Level label input
+        const labelInput = document.createElement("input");
+        labelInput.type = "text";
+        labelInput.value = `Level ${i}`;
+        labelInput.style.textAlign = "left";
+        labelInput.style.width = "90px";
+        labelInput.style.fontWeight = "500";
+        labelInput.style.fontSize = "0.85rem";
+        labelInput.style.marginRight = "4px";
+        labelInput.style.border = "1px solid #bfcdda";
+        labelInput.style.borderRadius = "4px";
+        labelInput.style.background = "#fff";
+        labelInput.style.boxShadow = "none";
+
+        // Height input
+        const heightInput = document.createElement("input");
+        heightInput.type = "number";
+        heightInput.placeholder = "Height (ft)";
+        heightInput.value = "12";
+        heightInput.style.textAlign = "center";
+        heightInput.style.width = "68px";
+        heightInput.style.fontSize = "0.85rem";
+        heightInput.style.border = "1px solid #bfcdda";
+        heightInput.style.borderRadius = "4px";
+        heightInput.style.background = "#fff";
+        heightInput.style.marginRight = "4px";
+        heightInput.style.boxShadow = "none";
+
+        // Height label
+        const heightLabel = document.createElement("span");
+        heightLabel.textContent = "ft";
+        heightLabel.style.fontSize = "0.82rem";
+        heightLabel.style.color = "#444";
+        heightLabel.style.marginRight = "6px";
+        heightLabel.style.fontWeight = "400";
+
+        levelInputs.push(heightInput);
+        labelInputs.push(labelInput);
+
+        // Update totalElevation on input
+        heightInput.addEventListener("input", () => updateTotalElevation());
+
+        row.appendChild(labelInput);
+        row.appendChild(heightInput);
+        row.appendChild(heightLabel);
+        stack.appendChild(row);
+      }
+
+      // The pipe (vertical line) next to stack, height based on totalElevation
+      const pipeLine = document.createElement("div");
+      pipeLine.style.position = "relative";
+      pipeLine.style.width = "12px";
+      pipeLine.style.background = "#c5d3e0";
+      pipeLine.style.border = "1.5px solid #bfcdda";
+      pipeLine.style.borderRadius = "6px";
+      pipeLine.style.zIndex = "0";
+      pipeLine.style.marginTop = "0";
+      pipeLine.style.marginBottom = "0";
+      // pipeLine height: sum of all level heights in px, min 120px
+      const getPipeHeight = () => {
+        let px = 0;
+        for (let input of levelInputs) {
+          const val = parseFloat(input.value) || 0;
+          px += Math.max(24, val * 4); // 4px per ft, min 24px per floor
+        }
+        return Math.max(px, 120);
+      };
+      pipeLine.style.height = getPipeHeight() + "px";
+
+      // Label "Critical Fixture" at top
+      const critLabel = document.createElement("div");
+      critLabel.textContent = "Critical Fixture";
+      critLabel.style.position = "absolute";
+      critLabel.style.top = "-28px";
+      critLabel.style.left = "50%";
+      critLabel.style.transform = "translateX(-50%)";
+      critLabel.style.fontWeight = "600";
+      critLabel.style.fontSize = "0.92rem";
+      critLabel.style.color = "#234";
+      critLabel.style.background = "#f1f4f7";
+      critLabel.style.padding = "2px 7px";
+      critLabel.style.borderRadius = "4px";
+      critLabel.style.border = "1px solid #bfcdda";
+      critLabel.style.boxShadow = "none";
+
+      // Total elevation label at right of pipe
+      const totalElevLabel = document.createElement("div");
+      totalElevLabel.textContent = "";
+      totalElevLabel.style.position = "absolute";
+      totalElevLabel.style.bottom = "0";
+      totalElevLabel.style.left = "120%";
+      totalElevLabel.style.fontSize = "0.93rem";
+      totalElevLabel.style.color = "#234";
+      totalElevLabel.style.fontWeight = "500";
+      totalElevLabel.style.background = "#f1f4f7";
+      totalElevLabel.style.padding = "2px 10px";
+      totalElevLabel.style.borderRadius = "4px";
+      totalElevLabel.style.border = "1px solid #bfcdda";
+      totalElevLabel.style.boxShadow = "none";
+
+      // Add pipeLine, critLabel, totalElevLabel to pipeCol
+      pipeCol.appendChild(pipeLine);
+      pipeCol.appendChild(critLabel);
+      pipeCol.appendChild(totalElevLabel);
+
+      // Function to update total elevation and redraw pipe/label heights
+      function updateTotalElevation() {
+        let sum = 0;
+        for (let input of levelInputs) {
+          sum += parseFloat(input.value) || 0;
+        }
+        totalElevation = sum;
+        totalElevLabel.textContent = "Elevation: " + totalElevation + " ft";
+        // update pipe height
+        const px = getPipeHeight();
+        pipeLine.style.height = px + "px";
+      }
+      // Initial update
+      updateTotalElevation();
+      // Attach to all levelInputs
+      levelInputs.forEach(input => {
+        input.addEventListener("input", updateTotalElevation);
+      });
+
+      // Compose the diagram
+      diagramWrapper.appendChild(serviceStack);
+      diagramWrapper.appendChild(pipeCol);
+      diagramWrapper.appendChild(stack);
+      container.appendChild(diagramWrapper);
+    } else {
+      container.innerText = "Enter a valid number of levels.";
+    }
+  }
+
+  function calculateBoosterPump() {
+    const gpm = parseFloat(document.getElementById("gpmDemand").value) || 0;
+    const streetPressure = parseFloat(document.getElementById("streetPressure").value) || 0;
+    const tapPressureDrop = parseFloat(document.getElementById("tapPressureDrop").value) || 0;
+    const futurePressureAllowance = parseFloat(document.getElementById("futurePressureAllowance").value) || 0;
+    const boosterHeight = parseFloat(document.getElementById("boosterHeight").value) || 0;
+    const backflowFrictionLoss = parseFloat(document.getElementById("backflowFrictionLoss").value) || 0;
+    // Use building model for highestFixtureAbovePump if present
+    const floorCountInput = parseInt(document.getElementById("floorCount").value) || 0;
+    const floorHeightInput = parseFloat(document.getElementById("floorHeight").value) || 0;
+    const highestFixtureAbovePump = floorCountInput * floorHeightInput || parseFloat(document.getElementById("highestFixtureAbovePump").value) || 0;
+    const longestRunPiping = parseFloat(document.getElementById("longestRunPiping").value) || 0;
+    const frictionLossFittingsPercent = parseFloat(document.getElementById("frictionLossFittings").value) || 0;
+    const minPressureFixtures = parseFloat(document.getElementById("minPressureFixtures").value) || 0;
+    const pipeSize = parseFloat(document.getElementById("pipeSize").value) || 0;
+    const cValue = parseFloat(document.getElementById("cValue").value) || 0;
+    const tapDistance = parseFloat(document.getElementById("tapDistance").value) || 0;
+    const externalFrictionLoss = parseFloat(document.getElementById("externalFrictionLoss").value) || 0;
+    const otherKnownLosses = parseFloat(document.getElementById("otherKnownLosses").value) || 0;
+    const pumpControlValveLoss = parseFloat(document.getElementById("pumpControlValveLoss").value) || 0;
+    const allowableFrictionLoss = parseFloat(document.getElementById("allowableFrictionLoss").value) || 0;
+
+    // Calculate total pressure in PSI at booster pump inlet
+    const systemPressure = streetPressure - tapPressureDrop + futurePressureAllowance;
+
+    // Calculate total head in feet (pressure head + elevation)
+    const pressureHead = systemPressure * 2.31;
+    const elevationGain = boosterHeight;
+    const totalHead = pressureHead + elevationGain;
+
+    // Calculate additional pressures and heads
+    const pressureEnteringBuilding = systemPressure - backflowFrictionLoss;
+    const pressureEnteringBuildingHead = pressureEnteringBuilding * 2.31;
+
+    const suctionPressureAtPump = pressureEnteringBuilding - externalFrictionLoss - otherKnownLosses - pumpControlValveLoss;
+    const suctionPressureAtPumpHead = suctionPressureAtPump * 2.31;
+
+    const pumpDischargePressure = suctionPressureAtPump + minPressureFixtures;
+    const pumpDischargePressureHead = pumpDischargePressure * 2.31;
+
+    const totalDynamicHeadPSI = pumpDischargePressure + highestFixtureAbovePump / 2.31 + (frictionLossFittingsPercent / 100) * pressureEnteringBuilding;
+    const totalDynamicHeadFeet = totalDynamicHeadPSI * 2.31 + highestFixtureAbovePump;
+
+    // Water service fluid velocity (approximate) based on flow and pipe size
+    // Velocity (fps) = (GPM × 0.4085) / (Diameter in inches)^2
+    const velocityFPS = pipeSize > 0 ? (gpm * 0.4085) / (pipeSize * pipeSize) : 0;
+
+    // Water service friction loss (feet of head per 100' run)
+    const waterServiceFrictionLoss = allowableFrictionLoss * 2.31;
+
+    const horsepower = (gpm * totalHead) / (3960 * 0.6); // 60% pump efficiency
+
+    const resultDiv = document.getElementById("calculationResult");
+    resultDiv.innerHTML = `
+      <tr><td>Flow Rate</td><td style="text-align:right;">${gpm.toFixed(1)}</td><td>GPM</td></tr>
+      <tr><td>Total Head</td><td style="text-align:right;">${totalHead.toFixed(1)}</td><td>ft</td></tr>
+      <tr><td>System Pressure at Booster</td><td style="text-align:right;">${systemPressure.toFixed(1)}</td><td>PSI</td></tr>
+      <tr><td>Pressure Head</td><td style="text-align:right;">${pressureHead.toFixed(1)}</td><td>ft</td></tr>
+      <tr><td>Elevation Gain</td><td style="text-align:right;">${elevationGain.toFixed(1)}</td><td>ft</td></tr>
+      <tr><td>Horsepower (est)</td><td style="text-align:right;">${horsepower.toFixed(2)}</td><td>HP</td></tr>
+      <tr><td>Pressure Entering Building</td><td style="text-align:right;">${pressureEnteringBuilding.toFixed(1)}</td><td>PSI</td></tr>
+      <tr><td>Pressure Entering Building</td><td style="text-align:right;">${pressureEnteringBuildingHead.toFixed(1)}</td><td>ft of Head</td></tr>
+      <tr><td>Suction Pressure at Pump</td><td style="text-align:right;">${suctionPressureAtPump.toFixed(1)}</td><td>PSI</td></tr>
+      <tr><td>Suction Pressure at Pump</td><td style="text-align:right;">${suctionPressureAtPumpHead.toFixed(1)}</td><td>ft of Head</td></tr>
+      <tr><td>Pump Discharge Pressure</td><td style="text-align:right;">${pumpDischargePressure.toFixed(1)}</td><td>PSI</td></tr>
+      <tr><td>Pump Discharge Pressure</td><td style="text-align:right;">${pumpDischargePressureHead.toFixed(1)}</td><td>ft of Head</td></tr>
+      <tr><td>Total Dynamic Head Required</td><td style="text-align:right;">${totalDynamicHeadPSI.toFixed(1)}</td><td>PSI</td></tr>
+      <tr><td>Total Dynamic Head Required</td><td style="text-align:right;">${totalDynamicHeadFeet.toFixed(1)}</td><td>ft of Head</td></tr>
+      <tr><td>Water Service Fluid Velocity</td><td style="text-align:right;">${velocityFPS.toFixed(2)}</td><td>ft/s</td></tr>
+      <tr><td>Water Service Friction Loss</td><td style="text-align:right;">${waterServiceFrictionLoss.toFixed(1)}</td><td>ft Head / 100'</td></tr>
+    `;
+
+    document.getElementById("formulaBox").innerText =
+      "Horsepower = (GPM × Total Head) / (3960 × Pump Efficiency)\n" +
+      `→ (${gpm} × ${totalHead.toFixed(1)}) / (3960 × 0.6)`;
+  }
+</script>
+
+</body>
+</html>

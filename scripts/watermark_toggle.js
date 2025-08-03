@@ -1,0 +1,1 @@
+console.log('Watermark Toggle Utility Initialized');

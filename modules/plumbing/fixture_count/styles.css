@@ -1,0 +1,74 @@
+/* Styling for Fixture Count Module */
+
+/* Header Layout */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-container img {
+  height: 60px;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a1a1a;
+  text-align: center;
+  flex-grow: 1;
+}
+
+/* Fixture Table Styles */
+.fixture-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.fixture-table th,
+.fixture-table td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.fixture-table th {
+  background-color: #e3e3e3;
+  font-weight: 600;
+}
+
+/* Demand Summary Section */
+.demand-summary {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-top: 30px;
+}
+
+.demand-summary h3 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+/* Buttons and Transfer Section */
+.flow-transfer-section {
+  margin-top: 24px;
+}
+
+.flow-transfer-section h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.flow-transfer-section button {
+  margin-right: 10px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}

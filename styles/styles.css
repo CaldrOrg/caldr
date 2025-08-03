@@ -1,0 +1,4 @@
+body { font-family: Arial; margin: 2em; background: #fff; color: #000; }
+.login-container { max-width: 300px; margin: auto; }
+.menu-grid { display: flex; gap: 1em; margin-top: 2em; }
+.card { background: #f0f0f0; padding: 1em; text-align: center; border: 1px solid #ccc; text-decoration: none; color: #333; }

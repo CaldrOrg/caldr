@@ -1,0 +1,516 @@
+<main>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    @media print {
+      .header-buttons,
+      .transfer-button {
+        display: none !important;
+      }
+    }
+    h1, h2, h3, .fixture-summary-title {
+      font-family: 'Inter', sans-serif !important;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    .fixture-table-wrapper {
+      overflow-x: auto;
+      width: 100%;
+    }
+    table {
+      width: 100%;
+      max-width: 100%;
+      border-collapse: collapse;
+    }
+    td {
+      white-space: nowrap;
+    }
+    input.qty, input.sfu, input.dfu {
+      min-width: 60px;
+      text-align: center;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      padding: 6px 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    input, select {
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    @media screen and (max-width: 768px) {
+      h1, h2 {
+        font-size: 1.5rem;
+      }
+      .caldr-project-info-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+  <!-- Caldr Module Header -->
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 30px; border-bottom: 1px solid #ccc; background: #f9fbfd;">
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <img src="../../../assets/caldr-logo.png" alt="Caldr Logo" class="caldr-logo no-print" style="height: 84px; object-fit: contain;" />
+      <div>
+        <h1 style="margin: 0; font-size: 1.9rem; font-weight: 700; color: #111; font-family: 'Inter', sans-serif !important;">
+          <span class="highlighted-title" style="color: #000; font-weight: 600; letter-spacing: -0.5px;">Plumbing Fixture Count</span>
+        </h1>
+        <div style="font-size: 0.95rem; color: #333;">Fixture Count Input Module</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 18px;">
+    <button class="return-button no-print" onclick="window.location.href='../../../menu.html'" style="padding: 10px 18px; font-size: 1rem;">← Return to Menu</button>
+  </div>
+
+  <div style="display: flex; gap: 24px; padding: 0 30px 10px 30px;">
+    <div>
+      <label for="projectName" style="font-weight: 600;">Project Name</label><br />
+      <input id="projectName" type="text" placeholder="Enter project name" style="padding: 4px 8px; font-size: 1rem; width: 200px;" />
+    </div>
+    <div>
+      <label for="projectNumber" style="font-weight: 600;">Project Number</label><br />
+      <input id="projectNumber" type="text" placeholder="0000" style="padding: 4px 8px; font-size: 1rem; width: 160px;" />
+    </div>
+    <div>
+      <label for="currentDate" style="font-weight: 600;">Date</label><br />
+      <input id="currentDate" type="text" placeholder="MM/DD/YYYY" style="padding: 4px 8px; font-size: 1rem; width: 160px;" />
+    </div>
+    <div>
+      <label for="designerName" style="font-weight: 600;">Designer/Engineer</label><br />
+      <input id="designerName" type="text" placeholder="Enter name" style="padding: 4px 8px; font-size: 1rem; width: 200px;" />
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 24px; margin-bottom: 32px;">
+    <button type="button" onclick="(() => {
+      const data = getModuleData();
+      const meta = {
+        projectName: document.getElementById('projectName')?.value || '',
+        projectNumber: document.getElementById('projectNumber')?.value || '',
+        date: document.getElementById('currentDate')?.value || '',
+        designer: document.getElementById('designerName')?.value || ''
+      };
+      if (window.exportCurrentModule) {
+        window.exportCurrentModule(data, 'fixtureCount', meta);
+      } else {
+        alert('Export function not found.');
+      }
+    })()" style="background: #e6f2ff; border: 1px solid #0077cc; padding: 6px 12px; border-radius: 4px; font-size: 0.95rem; cursor: pointer;">
+      💾 Export This Module
+    </button>
+
+    <button type="button" onclick="(() => {
+      if (window.importCaldrProject) {
+        window.importCaldrProject((imported) => {
+          console.log('Imported:', imported);
+          alert('Import successful — but handler not yet wired to populate fields.');
+        });
+      } else {
+        alert('Import function not found.');
+      }
+    })()" style="background: #f2f2f2; border: 1px solid #888; padding: 6px 12px; border-radius: 4px; font-size: 0.95rem; cursor: pointer;">
+      📂 Import Module File
+    </button>
+
+    <button class="no-print" onclick="window.print()" style="padding: 10px 18px; font-size: 1rem;">🖨️ Print</button>
+  </div>
+  <!-- Ensure caldr-utils.js is loaded before functions that use exportCurrentModule/importCaldrProject -->
+  <!-- caldr-utils.js removed: export/import logic is now inlined below -->
+  <!-- Inline export/import logic at the very bottom of the file -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const currentDate = new Date().toLocaleDateString();
+      document.getElementById("currentDate").textContent = currentDate;
+    });
+  </script>
+  <link rel="preload" href="../../assets/logo-header.png" as="image" />
+  <script src="fixture-count.js"></script>
+
+  <!-- IPC/UPC Selection -->
+  <div class="fixture-top-row" style="display: flex; justify-content: flex-start; padding: 6px 30px 0 30px;">
+    <div style="display: flex; gap: 24px;">
+      <label style="font-weight:500;"><input type="radio" name="code" value="IPC" checked /> IPC</label>
+      <label style="font-weight:500;"><input type="radio" name="code" value="UPC" /> UPC</label>
+    </div>
+  </div>
+
+  <!-- Table + Summary (side by side) -->
+  <div class="fixture-body-row" style="display: flex; align-items: flex-start; padding: 14px 20px 0 30px; gap: 14px;">
+    <!-- Fixture Chart/Table -->
+    <div style="flex: 2; min-width: 380px;">
+      <div class="fixture-table-wrapper">
+      <table class="fixture-table" style="font-size: 1rem; font-family: Arial, sans-serif; width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="width:60px; text-align: center;">Qty</th>
+            <th style="width:220px; text-align: left;">Fixture</th>
+            <th style="width:60px; text-align: center;">SFU</th>
+            <th style="width:60px; text-align: center;">DFU</th>
+            <th style="width:60px;"></th>
+            <th style="width:60px; text-align: center;">Qty</th>
+            <th style="width:220px; text-align: left;">Fixture</th>
+            <th style="width:60px; text-align: center;">SFU</th>
+            <th style="width:60px; text-align: center;">DFU</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Row 1 -->
+          <tr class="fixture-row" data-group="water-closet-tank">
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="5" data-hwsfu="0" data-dfu="4" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center; margin-left: 0;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Water Closet - Tank</div></td>
+            <td><input type="number" class="wsfu-input sfu-input fixture-sfu" value="5" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input fixture-dfu" value="4" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="0" data-hwsfu="10" data-dfu="4" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center; margin-left: 0;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Water Closet - Public FV</div></td>
+            <td><input type="number" class="hwsfu-input hwsfu-input fixture-sfu" value="10" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input fixture-dfu" value="4" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+          </tr>
+          <!-- Row 2 -->
+          <tr class="fixture-row">
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="6" data-hwsfu="0" data-dfu="3" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Water Closet - Private FV</div></td>
+            <td><input type="number" class="wsfu-input sfu fixture-sfu" value="6" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="3" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="0" data-hwsfu="5" data-dfu="2" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Urinal</div></td>
+            <td><input type="number" class="hwsfu-input sfu fixture-sfu" value="5" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="2" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+          </tr>
+          <!-- Row 3 -->
+          <tr class="fixture-row">
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="2" data-hwsfu="0" data-dfu="1" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Lavatory - Public</div></td>
+            <td><input type="number" class="wsfu-input sfu fixture-sfu" value="2" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="1" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="0" data-hwsfu="1.5" data-dfu="1" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Lavatory - Private</div></td>
+            <td><input type="number" class="hwsfu-input sfu fixture-sfu" value="1.5" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="1" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+          </tr>
+          <!-- Row 4 -->
+          <tr class="fixture-row">
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="1.4" data-hwsfu="0" data-dfu="0" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Single Faucet Sink</div></td>
+            <td><input type="number" class="wsfu-input sfu fixture-sfu" value="1.4" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="0" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="0" data-hwsfu="8" data-dfu="4" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Combo Fixtures</div></td>
+            <td><input type="number" class="hwsfu-input sfu fixture-sfu" value="8" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="4" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+          </tr>
+          <!-- Row 5 -->
+          <tr class="fixture-row">
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="1.4" data-hwsfu="0" data-dfu="2" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Private Showers</div></td>
+            <td><input type="number" class="wsfu-input sfu fixture-sfu" value="1.4" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="2" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="0" data-hwsfu="4" data-dfu="2" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Public Showers</div></td>
+            <td><input type="number" class="hwsfu-input sfu fixture-sfu" value="4" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="2" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+          </tr>
+          <!-- Row 6 -->
+          <tr class="fixture-row">
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="3" data-hwsfu="0" data-dfu="2" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Mop Receptor</div></td>
+            <td><input type="number" class="wsfu-input sfu fixture-sfu" value="3" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="2" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="0" data-hwsfu="3" data-dfu="2" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Service Sink</div></td>
+            <td><input type="number" class="hwsfu-input sfu fixture-sfu" value="3" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="2" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+          </tr>
+          <!-- Row 7 -->
+          <tr class="fixture-row">
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="2.25" data-hwsfu="0" data-dfu="2" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Residential Washer</div></td>
+            <td><input type="number" class="wsfu-input sfu fixture-sfu" value="2.25" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="2" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="0" data-hwsfu="15" data-dfu="3" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Hydrotherapy Tubs</div></td>
+            <td><input type="number" class="hwsfu-input sfu fixture-sfu" value="15" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="3" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+          </tr>
+          <!-- Row 8 -->
+          <tr class="fixture-row">
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="2" data-hwsfu="0" data-dfu="0" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Res. Dishwasher</div></td>
+            <td><input type="number" class="wsfu-input sfu fixture-sfu" value="2" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="0" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="0" data-hwsfu="6" data-dfu="3" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Sterilizers</div></td>
+            <td><input type="number" class="hwsfu-input sfu fixture-sfu" value="6" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="3" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+          </tr>
+          <!-- Row 9 -->
+          <tr class="fixture-row">
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="1.4" data-hwsfu="0" data-dfu="2" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Bath Tubs</div></td>
+            <td><input type="number" class="wsfu-input sfu fixture-sfu" value="1.4" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="2" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Clinic Sinks</div></td>
+            <td><input type="number" class="hwsfu-input sfu fixture-sfu" value="10" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="6" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+          </tr>
+          <!-- Row 10 -->
+          <tr class="fixture-row">
+            <td><input type="number" class="qty-input fixture-qty" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><div class="fixture-label">Bathroom Groups</div></td>
+            <td><input type="number" class="wsfu-input sfu fixture-sfu" value="8" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="5" maxlength="3" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="0" data-hwsfu="10" data-dfu="6" value="0" maxlength="6" style="width: 100%; padding: 6px 8px; font-size: 1rem; font-family: Arial, sans-serif; text-align: center; margin-left: 0;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><input type="text" placeholder="Custom Fixture" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box;" /></td>
+            <td><input type="number" class="hwsfu-input sfu fixture-sfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+          </tr>
+          <!-- Row 11 -->
+          <tr class="fixture-row">
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="8" data-hwsfu="0" data-dfu="5" value="0" maxlength="6" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><input type="text" placeholder="Custom Fixture" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box;" /></td>
+            <td><input type="number" class="wsfu-input sfu fixture-sfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="0" data-hwsfu="0" data-dfu="0" value="0" maxlength="6" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><input type="text" placeholder="Custom Fixture" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box;" /></td>
+            <td><input type="number" class="hwsfu-input sfu fixture-sfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+          </tr>
+          <!-- Row 12 -->
+          <tr class="fixture-row">
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="0" data-hwsfu="0" data-dfu="0" value="0" maxlength="6" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><input type="text" placeholder="Custom Fixture" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box;" /></td>
+            <td><input type="number" class="wsfu-input sfu fixture-sfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" data-wsfu="0" data-hwsfu="0" data-dfu="0" value="0" maxlength="6" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><input type="text" placeholder="Custom Fixture" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box;" /></td>
+            <td><input type="number" class="hwsfu-input sfu fixture-sfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+          </tr>
+          <!-- Row 13 -->
+          <tr class="fixture-row">
+            <td><input type="number" class="qty-input" data-wsfu="0" data-hwsfu="0" data-dfu="0" value="0" maxlength="6" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><input type="text" placeholder="Custom Fixture" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box;" /></td>
+            <td><input type="number" class="wsfu-input sfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td style="width: 20px;"></td>
+            <td><input type="number" class="qty-input fixture-qty" value="0" maxlength="6" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td style="font-size: 1rem; font-family: Arial, sans-serif; padding: 2px 4px;"><input type="text" placeholder="Custom Fixture" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box;" /></td>
+            <td><input type="number" class="hwsfu-input sfu fixture-sfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+            <td><input type="number" class="dfu-input dfu fixture-dfu" value="0.0" maxlength="3" style="font-size: 1rem; font-family: 'Inter', sans-serif; padding: 6px 8px; width: 100%; box-sizing: border-box; text-align: center;" /></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- Fixture Demand Summary + Buttons (right) -->
+    <div class="fixture-summary" style="flex: 1; min-width: 290px;">
+      <!-- Formula container (button removed) -->
+      <div id="formulaContainer" style="display: none; margin-top: 12px;"></div>
+      <!-- Single, styled summary section -->
+      <div class="summary" style="background: #f5f9ff; border: 1px solid #b5d2f1; border-radius: 8px; padding: 18px 18px 16px 18px; margin-top: 18px;">
+        <h2 style="color: #e48b18; font-weight: 600; letter-spacing: -0.4px; font-family: 'Inter', sans-serif !important;">Fixture Demand Summary</h2>
+        <div class="summary-item"><strong>Total WSFU:</strong> <span id="wsfu-total">0</span> — <em>(Cold + Hot Combined)</em></div>
+        <div class="summary-item"><strong>Total HWSFU:</strong> <span id="hwfu-total">0</span></div>
+        <div class="summary-item"><strong>Total DFU:</strong> <span id="dfu-total">0</span></div>
+        <hr style="margin: 16px 0;">
+        <div class="summary-item"><strong>WSFU GPM:</strong> <span id="wsfu-to-gpm">0</span></div>
+        <div class="summary-item"><strong>HWSFU GPM:</strong> <span id="hwfu-to-gpm">0</span></div>
+        <div class="summary-item"><strong>DFU GPM:</strong> <span id="dfu-to-gpm">0</span></div>
+        <div class="summary-item"><strong>HVAC Demand:</strong> <span id="hvac-demand">0</span></div>
+        <div class="summary-item"><strong>Irrigation Demand:</strong> <span id="irrigation-demand">0</span></div>
+        <div class="summary-item"><strong>Other Demands:</strong> <span id="other-demands">0</span></div>
+        <div class="summary-item"><strong>WSFU Formula:</strong> <span id="wsfu-formula"></span></div>
+        <div class="summary-item"><strong>DFU Formula:</strong> <span id="dfu-formula"></span></div>
+        <div class="summary-item"><strong>HWSFU Formula:</strong> <span id="hwfu-formula"></span></div>
+      </div>
+      <!-- Caldr-standard View Formula button -->
+      <div style="margin-top: 18px; margin-bottom: 24px;">
+        <button class="no-print" onclick="alert('Formula logic coming soon.')" style="padding: 10px 18px; font-size: 1rem;">
+          📐 View Formula
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legal Disclaimer -->
+  <footer style="margin-top: 36px; padding: 16px 30px 18px 30px;">
+    <p class="disclaimer" style="font-size:0.98rem; color:#444;">
+      This tool is intended for reference use only. All calculations and outputs generated by Caldr must be independently reviewed and verified by a licensed engineer or the engineer of record (EOR). Caldr assumes no responsibility for the accuracy, completeness, or applicability of its outputs in final designs or construction documents.
+    </p>
+  </footer>
+  <script>
+    function getProjectMeta() {
+      return {
+        name: document.querySelector('#projectName').value,
+        number: document.querySelector('#projectNumber').value,
+        date: document.querySelector('#currentDate').value,
+        designer: document.querySelector('#designerName').value
+      };
+    }
+
+    function getModuleData() {
+      return {
+        code: document.querySelector('input[name="code"]:checked')?.value || 'UPC',
+        entries: [...document.querySelectorAll('.fixture-row')].map(row => ({
+          fixture: row.querySelector('.fixture-label')?.textContent || '',
+          qty: Number(row.querySelector('.qty-input')?.value || 0),
+          sfu: Number(row.querySelector('.sfu-input')?.value || 0),
+          dfu: Number(row.querySelector('.dfu-input')?.value || 0)
+        }))
+      };
+    }
+
+    function loadImportedProject(data) {
+      const module = data.modules?.fixtureCount;
+      if (!module) return alert("No Fixture Count data found.");
+
+      if (data.project) {
+        document.querySelector('#projectName').value = data.project.name || '';
+        document.querySelector('#projectNumber').value = data.project.number || '';
+        document.querySelector('#currentDate').value = data.project.date || '';
+        document.querySelector('#designerName').value = data.project.designer || '';
+      }
+
+      if (module.code) {
+        const codeInput = document.querySelector(`input[name="code"][value="${module.code}"]`);
+        if (codeInput) codeInput.checked = true;
+      }
+
+      const rows = document.querySelectorAll('.fixture-row');
+      module.entries.forEach((entry, i) => {
+        if (!rows[i]) return;
+        rows[i].querySelector('.qty-input').value = entry.qty ?? 0;
+        rows[i].querySelector('.sfu-input').value = entry.sfu ?? 0;
+        rows[i].querySelector('.dfu-input').value = entry.dfu ?? 0;
+      });
+
+      alert("Fixture Count module imported successfully.");
+    }
+
+    // Remove deprecated toggleFormula function if present
+    // (No toggleFormula function found in this script block)
+  </script>
+  <script>
+    function exportModuleWrapper() {
+      if (window.exportCurrentModule && typeof getModuleData === 'function') {
+        const data = getModuleData();
+        const meta = typeof getProjectMeta === 'function' ? getProjectMeta() : { projectName: '', projectNumber: '', date: '', designer: '' };
+        window.exportCurrentModule(data, 'fixtureCount', meta);
+      } else {
+        console.error('Export function or data not found.');
+      }
+    }
+
+    function importModuleWrapper() {
+      if (window.importCaldrProject && typeof loadImportedProject === 'function') {
+        window.importCaldrProject(loadImportedProject);
+      } else {
+        console.error('Import function or callback not found.');
+      }
+    }
+  </script>
+</main>
+
+  <style>
+    .formula {
+      font-size: 0.92em;
+      color: #888;
+      margin-left: 4px;
+      margin-top: 2px;
+    }
+    .summary-item {
+      margin-bottom: 8px;
+    }
+  </style>
+  <script src="fixture-count.js"></script>
+  <script>
+    // Ensure global exposure of utility methods
+    window.exportCurrentModule = window.exportCurrentModule || exportCurrentModule;
+    window.importCaldrProject = window.importCaldrProject || importCaldrProject;
+  </script>
+
+  <!-- Inline export/import logic -->
+  <script>
+    function exportCurrentModule(data, moduleName, projectMeta) {
+      const payload = {
+        module: moduleName,
+        timestamp: new Date().toISOString(),
+        project: projectMeta || {},
+        data: data
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      const today = new Date().toISOString().slice(0,10).replace(/-/g, '');
+      a.download = `${today}_${moduleName || 'module'}_caldr_project.json`;
+      a.click();
+    }
+
+    function importCaldrProject(callback) {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json,application/json';
+      input.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const result = JSON.parse(event.target.result);
+            callback(result);
+          } catch (err) {
+            alert('Invalid file format');
+          }
+        };
+        reader.readAsText(file);
+      });
+      input.click();
+    }
+
+    // Bind to window to ensure inline button access
+    window.exportCurrentModule = exportCurrentModule;
+    window.importCaldrProject = importCaldrProject;
+
+    // Wire import handler to populate project info fields
+    // Replace the import button's inline handler with this, or use this pattern:
+    document.querySelectorAll('button').forEach(btn => {
+      if (btn.textContent && btn.textContent.includes('Import Module File')) {
+        btn.onclick = () => {
+          if (window.importCaldrProject) {
+            window.importCaldrProject((result) => {
+              if (result?.project) {
+                document.getElementById('projectName').value = result.project.projectName || result.project.name || '';
+                document.getElementById('projectNumber').value = result.project.projectNumber || result.project.number || '';
+                document.getElementById('currentDate').value = result.project.date || '';
+                document.getElementById('designerName').value = result.project.designer || '';
+                alert('Import successful — project info populated.');
+              } else {
+                alert('Import loaded, but no project metadata found.');
+              }
+            });
+          } else {
+            alert('Import function not found.');
+          }
+        };
+      }
+    });
+  </script>

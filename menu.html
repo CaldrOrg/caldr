@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Caldr – Home</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    .caldr-toggle-button {
+      padding: 24px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border: 3px solid #2a80c9;
+      border-radius: 12px;
+      background: linear-gradient(to bottom, #f0f8ff, #d6eaff);
+      color: #2a80c9;
+      cursor: pointer;
+      width: 240px;
+      text-align: center;
+      transition: background-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .caldr-toggle-button:hover {
+      background-color: #c6e0ff;
+      box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-button.selected {
+      background-color: #2a80c9 !important;
+      color: black !important;
+      font-weight: 800 !important;
+      border: 6px solid #1d5ea8;
+      box-shadow: 0 0 0 3px #a8c7e0;
+    }
+  </style>
+</head>
+<body style="background-color: #f5f5f5;">
+  <script>
+    if (!localStorage.getItem("isAuthenticated")) {
+      window.location.href = "login.html";
+    }
+  </script>
+  <div class="caldr-header-bar" style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 16px; margin-bottom: 20px;">
+    <img src="assets/caldr-logo.png" alt="Caldr Logo" class="caldr-logo" style="height: clamp(26px, 6vw, 66px); width: auto; max-width: 100%;" />
+    <h1 class="caldr-header" style="font-size: 2.6rem; font-weight: 800; margin: 12px 0 0 0; color: #000;">
+      Welcome to Caldr
+    </h1>
+  </div>
+  <div class="caldr-container" style="display: flex; gap: 32px; align-items: flex-start;">
+    <!-- Sidebar Nav -->
+    <div style="display: flex; flex-direction: column; gap: 12px; min-width: 220px;">
+      <h2 style="font-size: 1.3rem; font-weight: 600; color: #2a80c9; margin-bottom: 16px; text-align: left;">
+        Select a category to begin working on a module
+      </h2>
+      <button class="caldr-toggle-button category-button" onclick="showSection('plumbing-modules')" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <img src="assets/plumbing/plumbing_catagory.png" alt="Plumbing Icon" width="64" height="64" loading="eager" decoding="async" style="height: 48px; background-color: #f0f8ff; border-radius: 8px; padding: 4px; margin-bottom: 8px;" />
+        <span style="font-size: 1.1rem; font-weight: 600;">Plumbing</span>
+      </button>
+      <button class="caldr-toggle-button category-button" onclick="showSection('medical-gas-modules')" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <img src="assets/medical_gas/oav_outlets.png" alt="Medical Gas Icon" style="height: 48px; background-color: #f0f8ff; border-radius: 8px; padding: 4px; margin-bottom: 8px;" />
+        <span style="font-size: 1.1rem; font-weight: 600;">Medical Gas</span>
+      </button>
+      <button class="caldr-toggle-button category-button" onclick="showSection('fire-protection-modules')" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <img src="assets/fire_protection/fire_protection.png" alt="Fire Protection Icon" style="height: 48px; background-color: #f0f8ff; border-radius: 8px; padding: 4px; margin-bottom: 8px;" />
+        <span style="font-size: 1.1rem; font-weight: 600;">Fire Protection</span>
+      </button>
+    </div>
+
+    <!-- Main Module Display -->
+    <div style="flex: 1; margin-top: 140px;">
+      <div id="plumbing-modules" class="caldr-folder" style="display: none; grid-template-columns: repeat(4, 1fr); gap: 16px; justify-items: center;">
+        <a href="modules/plumbing/fixture_count/index.html" class="caldr-button">Fixture Count</a>
+        <a href="modules/plumbing/water_usage/index.html" class="caldr-button">Water Usage</a>
+        <a href="modules/plumbing/dfu_sfu_to_gpm/index.html" class="caldr-button">DFU/SFU to GPM</a>
+        <a href="modules/plumbing/flow_test/index.html" class="caldr-button">Flow Test</a>
+        <a href="modules/plumbing/street_pressure/index.html" class="caldr-button">Street Pressure</a>
+        <a href="modules/plumbing/pipe_sizer/index.html" class="caldr-button">Water Pipe Sizer</a>
+        <a href="modules/plumbing/water_softener/index.html" class="caldr-button">Water Softener</a>
+        <a href="modules/plumbing/water_heater_sizer/index.html" class="caldr-button">Water Heater</a>
+        <a href="modules/plumbing/hw_mixing_valve/index.html" class="caldr-button">HW Mixing Valve</a>
+        <a href="modules/plumbing/hw_recirc/index.html" class="caldr-button">HW Recirculation</a>
+        <a href="modules/plumbing/kitchen_heater/index.html" class="caldr-button">Kitchen Heater</a>
+        <a href="modules/plumbing/velocity_friction/index.html" class="caldr-button">Velocity / Friction</a>
+        <a href="modules/plumbing/booster_pump/index.html" class="caldr-button">Booster Pump</a>
+        <a href="modules/plumbing/pipe_volume/index.html" class="caldr-button">Pipe Volume</a>
+        <a href="modules/plumbing/thermal_exp/index.html" class="caldr-button">Thermal Expansion</a>
+        <a href="modules/plumbing/linear_exp/index.html" class="caldr-button">Linear Expansion</a>
+        <a href="modules/plumbing/building_drain/index.html" class="caldr-button">Building Drain</a>
+        <a href="modules/plumbing/roof_drainage/index.html" class="caldr-button">Roof Drainage</a>
+        <a href="modules/plumbing/storm_drain/index.html" class="caldr-button">Storm Drain</a>
+        <a href="modules/plumbing/sump_pump/index.html" class="caldr-button">Sump Pump</a>
+        <a href="modules/plumbing/sewage_pump/index.html" class="caldr-button">Sewage Pump</a>
+        <a href="modules/plumbing/cooling_tower/index.html" class="caldr-button">Cooling Tower</a>
+        <a href="modules/plumbing/horsepower/index.html" class="caldr-button">Horsepower</a>
+        <a href="modules/plumbing/mechanical_coordination/index.html" class="caldr-button">Mechanical Coordination</a>
+        <a href="modules/plumbing/electrical_coordination/index.html" class="caldr-button">Electrical Coordination</a>
+      </div>
+
+      <div id="medical-gas-modules" class="caldr-folder" style="display: none; grid-template-columns: repeat(4, 1fr); gap: 16px; justify-items: center; margin-top: 140px;">
+        <a href="modules/medical_gas/piping/index.html" class="caldr-button">Med. Gas Piping</a>
+        <a href="modules/medical_gas/flow/index.html" class="caldr-button">Med. Gas Flow</a>
+        <a href="modules/medical_gas/air_compressor/index.html" class="caldr-button">Medical Air Compressor</a>
+        <a href="modules/medical_gas/vacuum_pump/index.html" class="caldr-button">Medical Vacuum Pump</a>
+      </div>
+
+      <div id="fire-protection-modules" class="caldr-folder" style="display: none; grid-template-columns: repeat(4, 1fr); gap: 16px; justify-items: center; margin-top: 260px;">
+        <a href="modules/fire_protection/fire_hydrant_flow_test/index.html" class="caldr-button">Hydrant Flow Test</a>
+        <a href="modules/fire_protection/fire_pump/index.html" class="caldr-button">Fire Pump Module</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    function showSection(sectionId) {
+      const sections = ["plumbing-modules", "medical-gas-modules", "fire-protection-modules"];
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = (id === sectionId) ? "grid" : "none";
+      });
+
+      const buttons = document.querySelectorAll('.category-button');
+      buttons.forEach(btn => btn.classList.remove('selected'));
+
+      const selectedButton = document.querySelector(`.category-button[onclick="showSection('${sectionId}')"]`);
+      if (selectedButton) selectedButton.classList.add('selected');
+    }
+  </script>
+</body>
+</html>

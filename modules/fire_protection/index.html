@@ -1,0 +1,321 @@
+<main>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    @media print {
+      .header-buttons,
+      .transfer-button {
+        display: none !important;
+      }
+    }
+    h1, h2, h3, .fixture-summary-title {
+      font-family: 'Inter', sans-serif !important;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    .fixture-table-wrapper {
+      overflow-x: auto;
+      width: 100%;
+    }
+    table {
+      width: 100%;
+      max-width: 100%;
+      border-collapse: collapse;
+    }
+    td {
+      white-space: nowrap;
+    }
+    input.qty, input.sfu, input.dfu {
+      min-width: 60px;
+      text-align: center;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      padding: 6px 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    input, select {
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    @media screen and (max-width: 768px) {
+      h1, h2 {
+        font-size: 1.5rem;
+      }
+      .caldr-project-info-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+  <!-- Caldr Module Header -->
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 30px; border-bottom: 1px solid #ccc; background: #f9fbfd;">
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <img src="../../../assets/caldr-logo.png" alt="Caldr Logo" class="caldr-logo no-print" style="height: 84px; object-fit: contain;" />
+      <div>
+        <h1 style="margin: 0; font-size: 2rem; font-weight: 700; letter-spacing: -1px;">
+          <span class="highlighted-title" style="color: #c25500;">Template Module</span>
+        </h1>
+        <div class="module-subtitle">Template layout and format reference</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 18px;">
+    <button class="return-button no-print" onclick="location.href='../../menu.html'" style="padding: 10px 18px; font-size: 1rem;">← Return to Menu</button>
+  </div>
+
+  <div style="display: flex; gap: 24px; padding: 0 30px 10px 30px;">
+    <div>
+      <label for="projectName" style="font-weight: 600;">Project Name</label><br />
+      <input id="projectName" type="text" placeholder="Enter project name" style="padding: 4px 8px; font-size: 1rem; width: 200px;" />
+    </div>
+    <div>
+      <label for="projectNumber" style="font-weight: 600;">Project Number</label><br />
+      <input id="projectNumber" type="text" placeholder="0000" style="padding: 4px 8px; font-size: 1rem; width: 160px;" />
+    </div>
+    <div>
+      <label for="currentDate" style="font-weight: 600;">Date</label><br />
+      <input id="currentDate" type="text" placeholder="MM/DD/YYYY" style="padding: 4px 8px; font-size: 1rem; width: 160px;" />
+    </div>
+    <div>
+      <label for="designerName" style="font-weight: 600;">Designer/Engineer</label><br />
+      <input id="designerName" type="text" placeholder="Enter name" style="padding: 4px 8px; font-size: 1rem; width: 200px;" />
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 24px; margin-bottom: 32px;">
+    <button type="button" onclick="(() => {
+      const data = getModuleData();
+      const meta = {
+        projectName: document.getElementById('projectName')?.value || '',
+        projectNumber: document.getElementById('projectNumber')?.value || '',
+        date: document.getElementById('currentDate')?.value || '',
+        designer: document.getElementById('designerName')?.value || ''
+      };
+      if (window.exportCurrentModule) {
+        window.exportCurrentModule(data, 'fixtureCount', meta);
+      } else {
+        alert('Export function not found.');
+      }
+    })()" style="background: #e6f2ff; border: 1px solid #0077cc; padding: 6px 12px; border-radius: 4px; font-size: 0.95rem; cursor: pointer;">
+      💾 Export This Module
+    </button>
+
+    <button type="button" onclick="(() => {
+      if (window.importCaldrProject) {
+        window.importCaldrProject((imported) => {
+          console.log('Imported:', imported);
+          alert('Import successful — but handler not yet wired to populate fields.');
+        });
+      } else {
+        alert('Import function not found.');
+      }
+    })()" style="background: #f2f2f2; border: 1px solid #888; padding: 6px 12px; border-radius: 4px; font-size: 0.95rem; cursor: pointer;">
+      📂 Import Module File
+    </button>
+
+    <button class="no-print" onclick="window.print()" style="padding: 10px 18px; font-size: 1rem;">🖨️ Print</button>
+  </div>
+  <!-- Ensure caldr-utils.js is loaded before functions that use exportCurrentModule/importCaldrProject -->
+  <!-- caldr-utils.js removed: export/import logic is now inlined below -->
+  <!-- Inline export/import logic at the very bottom of the file -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const currentDate = new Date().toLocaleDateString();
+      document.getElementById("currentDate").textContent = currentDate;
+    });
+  </script>
+  <link rel="preload" href="../../assets/logo-header.png" as="image" />
+  <script src="fixture-count.js"></script>
+
+
+  <!-- Table + Summary (side by side) -->
+  <div class="fixture-body-row" style="display: flex; align-items: flex-start; padding: 24px 30px 0 30px; gap: 40px;">
+    <!-- Fixture Demand Summary (right) -->
+    <div style="display: flex; flex-direction: column; align-items: flex-end; width: 100%;">
+      <div class="fixture-summary" style="flex: 0 0 340px; max-width: 340px;">
+        <div class="summary" style="background: #f7fafc; border: 1px solid #b5d2f1; border-radius: 10px; padding: 24px 22px 20px 22px; margin-bottom: 18px;">
+          <h2 class="summary-heading" style="color: #c25500;">Template Summary</h2>
+          <div class="summary-line" style="color: #000;">Sample Value: 0</div>
+        </div>
+        <div style="margin-left: 0; margin-top: 8px;">
+          <button class="btn view-formula-button no-print" style="padding: 10px 18px; font-size: 1rem; display: flex; align-items: center; gap: 8px;"
+            onclick="alert('Formula logic coming soon.')" >
+            <img src="../../assets/caldr_triangle.png" alt="Triangle Icon" style="height: 1em; margin-right: 8px;" />
+            View Formula
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legal Disclaimer -->
+  <footer style="margin-top: 36px; padding: 16px 30px 18px 30px;">
+    <p class="disclaimer" style="font-size:0.98rem; color:#444;">
+      This tool is intended for reference use only. All calculations and outputs generated by Caldr must be independently reviewed and verified by a licensed engineer or the engineer of record (EOR). Caldr assumes no responsibility for the accuracy, completeness, or applicability of its outputs in final designs or construction documents.
+    </p>
+  </footer>
+  <script>
+    function getProjectMeta() {
+      return {
+        name: document.querySelector('#projectName').value,
+        number: document.querySelector('#projectNumber').value,
+        date: document.querySelector('#currentDate').value,
+        designer: document.querySelector('#designerName').value
+      };
+    }
+
+    function getModuleData() {
+      return {
+        code: document.querySelector('input[name="code"]:checked')?.value || 'UPC',
+        entries: [...document.querySelectorAll('.fixture-row')].map(row => ({
+          fixture: row.querySelector('.fixture-label')?.textContent || '',
+          qty: Number(row.querySelector('.qty-input')?.value || 0),
+          sfu: Number(row.querySelector('.sfu-input')?.value || 0),
+          dfu: Number(row.querySelector('.dfu-input')?.value || 0)
+        }))
+      };
+    }
+
+    function loadImportedProject(data) {
+      const module = data.modules?.fixtureCount;
+      if (!module) return alert("No Fixture Count data found.");
+
+      if (data.project) {
+        document.querySelector('#projectName').value = data.project.name || '';
+        document.querySelector('#projectNumber').value = data.project.number || '';
+        document.querySelector('#currentDate').value = data.project.date || '';
+        document.querySelector('#designerName').value = data.project.designer || '';
+      }
+
+      if (module.code) {
+        const codeInput = document.querySelector(`input[name="code"][value="${module.code}"]`);
+        if (codeInput) codeInput.checked = true;
+      }
+
+      const rows = document.querySelectorAll('.fixture-row');
+      module.entries.forEach((entry, i) => {
+        if (!rows[i]) return;
+        rows[i].querySelector('.qty-input').value = entry.qty ?? 0;
+        rows[i].querySelector('.sfu-input').value = entry.sfu ?? 0;
+        rows[i].querySelector('.dfu-input').value = entry.dfu ?? 0;
+      });
+
+      alert("Fixture Count module imported successfully.");
+    }
+
+    // Remove deprecated toggleFormula function if present
+    // (No toggleFormula function found in this script block)
+  </script>
+  <script>
+    function exportModuleWrapper() {
+      if (window.exportCurrentModule && typeof getModuleData === 'function') {
+        const data = getModuleData();
+        const meta = typeof getProjectMeta === 'function' ? getProjectMeta() : { projectName: '', projectNumber: '', date: '', designer: '' };
+        window.exportCurrentModule(data, 'fixtureCount', meta);
+      } else {
+        console.error('Export function or data not found.');
+      }
+    }
+
+    function importModuleWrapper() {
+      if (window.importCaldrProject && typeof loadImportedProject === 'function') {
+        window.importCaldrProject(loadImportedProject);
+      } else {
+        console.error('Import function or callback not found.');
+      }
+    }
+  </script>
+</main>
+
+  <style>
+    .formula {
+      font-size: 0.92em;
+      color: #888;
+      margin-left: 4px;
+      margin-top: 2px;
+    }
+    .summary-item {
+      margin-bottom: 8px;
+    }
+  </style>
+  <script src="fixture-count.js"></script>
+  <script>
+    // Ensure global exposure of utility methods
+    window.exportCurrentModule = window.exportCurrentModule || exportCurrentModule;
+    window.importCaldrProject = window.importCaldrProject || importCaldrProject;
+  </script>
+
+  <!-- Inline export/import logic -->
+  <script>
+    function exportCurrentModule(data, moduleName, projectMeta) {
+      const payload = {
+        module: moduleName,
+        timestamp: new Date().toISOString(),
+        project: projectMeta || {},
+        data: data
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      const today = new Date().toISOString().slice(0,10).replace(/-/g, '');
+      a.download = `${today}_${moduleName || 'module'}_caldr_project.json`;
+      a.click();
+    }
+
+    function importCaldrProject(callback) {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json,application/json';
+      input.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const result = JSON.parse(event.target.result);
+            callback(result);
+          } catch (err) {
+            alert('Invalid file format');
+          }
+        };
+        reader.readAsText(file);
+      });
+      input.click();
+    }
+
+    // Bind to window to ensure inline button access
+    window.exportCurrentModule = exportCurrentModule;
+    window.importCaldrProject = importCaldrProject;
+
+    // Wire import handler to populate project info fields
+    // Replace the import button's inline handler with this, or use this pattern:
+    document.querySelectorAll('button').forEach(btn => {
+      if (btn.textContent && btn.textContent.includes('Import Module File')) {
+        btn.onclick = () => {
+          if (window.importCaldrProject) {
+            window.importCaldrProject((result) => {
+              if (result?.project) {
+                document.getElementById('projectName').value = result.project.projectName || result.project.name || '';
+                document.getElementById('projectNumber').value = result.project.projectNumber || result.project.number || '';
+                document.getElementById('currentDate').value = result.project.date || '';
+                document.getElementById('designerName').value = result.project.designer || '';
+                alert('Import successful — project info populated.');
+              } else {
+                alert('Import loaded, but no project metadata found.');
+              }
+            });
+          } else {
+            alert('Import function not found.');
+          }
+        };
+      }
+    });
+  </script>
+  </script>
+</body>
+</html>
