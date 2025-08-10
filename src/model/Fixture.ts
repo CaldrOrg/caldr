@@ -14,4 +14,8 @@ export interface Fixture {
 	upc_dfu: number;
 	upc_sfu_min_branch_pipe_size_in: number;
 	upc_sfu: number;
+
+	hvac: number;
+	irrigation: number;
+	other: number;
 }

@@ -1,26 +1,46 @@
 import CaldrLogo from "@assets/caldr_logo.png";
-import { IconMoon, IconSun } from "@tabler/icons-react";
-import { Link } from "react-router";
+import { IconFileSettings, IconMoon, IconSun } from "@tabler/icons-react";
+import { Helmet } from "react-helmet-async";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useCaldrStore } from "../../stores";
 import styles from "./styles.module.scss";
 
 export default function ModuleLayout({ children, moduleName, moduleDescription, className }: ModuleLayoutProps) {
 	const { toggleTheme, theme } = useCaldrStore();
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	return (
 		<div className={styles.moduleLayout}>
+			<Helmet>
+				<title>{moduleName} | Caldr</title>
+				<meta name="description" content={moduleDescription} />
+			</Helmet>
+
 			<header>
-				<img src={CaldrLogo} alt="Caldr Logo" />
-				<h1>{moduleName}</h1>
-				<h2>{moduleDescription}</h2>
+				<Link to="/">
+					<img src={CaldrLogo} alt="Caldr Logo" />
+				</Link>
+				<div>
+					<h1>{moduleName}</h1>
+					<h2>{moduleDescription}</h2>
+				</div>
 				<span className={styles.spacer}></span>
-				<button onClick={toggleTheme}>
+				<button
+					onClick={() => navigate("/project_settings")}
+					title="Project Settings"
+					disabled={location?.pathname === "/project_settings"}>
+					<IconFileSettings />
+				</button>
+				<button
+					onClick={toggleTheme}
+					title="Toggle Theme">
 					{theme === "light" && <IconSun />}
 					{theme === "dark" && <IconMoon />}
 				</button>
 			</header>
 			<nav>
-				<Link to="/">← Return to Menu</Link>
+				<button onClick={() => navigate(-1)}>← Back</button>
 			</nav>
 			<main {...{ className }}>
 				{children}

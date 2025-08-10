@@ -7,17 +7,21 @@
 		"dev": "vite",
 		"build": "tsc -b && vite build",
 		"lint": "eslint .",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"test": "vitest"
 	},
 	"dependencies": {
 		"@tabler/icons-react": "2",
+		"clsx": "^2.1.1",
+		"fast-equals": "^5.2.2",
 		"parse-markdown-table": "^0.0.6",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
+		"react-helmet-async": "^2.0.5",
 		"react-json-view": "^1.21.3",
 		"react-router": "^7.7.1",
 		"sass": "^1.89.2",
-		"uuid": "^11.1.0",
+		"use-debounce": "^10.0.5",
 		"zustand": "^5.0.7"
 	},
 	"devDependencies": {
@@ -33,6 +37,7 @@
 		"typescript": "~5.8.3",
 		"typescript-eslint": "^8.35.1",
 		"vite": "^7.0.4",
-		"vite-tsconfig-paths": "^5.1.4"
+		"vite-tsconfig-paths": "^5.1.4",
+		"vitest": "^3.2.4"
 	}
 }

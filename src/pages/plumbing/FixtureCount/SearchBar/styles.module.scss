@@ -1,0 +1,87 @@
+.searchBar {
+	position: relative;
+
+	input,
+	select {
+		z-index: 3;
+	}
+
+	>input {
+		min-width: 300px;
+	}
+}
+
+.float {
+
+	ul {
+		position: absolute;
+		z-index: 2;
+		top: -0.5rem;
+		left: -0.5rem;
+
+		width: 50%;
+		max-height: 500px;
+		overflow-y: auto;
+
+		background-color: var(--bg);
+
+		margin-block: 0;
+		padding-inline: 0;
+
+		padding-top: 3rem;
+		padding-left: 1rem;
+		padding-right: 0.5rem;
+		padding-bottom: 0.5rem;
+
+		li {
+			list-style-type: none;
+
+			&:nth-child(odd) {
+				background-color: var(--table-odd-bg);
+			}
+
+			&:nth-child(even) {
+				background-color: var(--table-even-bg);
+			}
+
+			display: grid;
+			grid-template: "name name add"
+			"occupancy variant add" / 3rem 1fr auto;
+			gap: 0 1rem;
+
+			>*:nth-child(1) {
+				grid-area: name;
+				color: var(--text);
+				font-weight: bold;
+				font-size: 0.875rem;
+			}
+
+			>*:nth-child(2) {
+				grid-area: occupancy;
+				font-size: 0.75rem;
+			}
+
+			>*:nth-child(3) {
+				grid-area: variant;
+				font-size: 0.75rem;
+			}
+
+			>*:nth-child(4) {
+				grid-area: add;
+				display: flex;
+				flex-direction: row;
+				gap: 0.5rem;
+				align-items: center;
+
+				>button {
+					font-size: 0.75rem;
+					padding: 0.25rem 0.5rem;
+				}
+
+				>input {
+					max-width: 50px;
+				}
+			}
+		}
+	}
+}

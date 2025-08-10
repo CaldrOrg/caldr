@@ -1,11 +1,16 @@
 import CaldrLogo from "@assets/caldr_logo.png";
 import { Icon3dCubeSphere, IconArrowBarBoth, IconArrowsShuffle, IconBackhoe, IconBolt, IconBoxPadding, IconCalculator, IconCloudCog, IconCloudRain, IconCoffee, IconCylinder, IconDeviceWatchCog, IconDimensions, IconDroplet, IconDropletUp, IconEngine, IconFilter, IconFireHydrant, IconFiretruck, IconGauge, IconHomeEco, IconNut, IconRefresh, IconRipple, IconSection, IconTemperaturePlus, IconTower, IconTransfer, IconTransform, IconWashEco, IconWashTemperature3 } from "@tabler/icons-react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
 import styles from "./styles.module.scss";
 
 export default function Home({ }: HomeProps) {
 	return (
 		<div className={styles.home}>
+			<Helmet>
+				<title>Home | Caldr</title>
+			</Helmet>
+
 			<img src={CaldrLogo} alt="Caldr Logo" />
 			<h1>Welcome to Caldr</h1>
 

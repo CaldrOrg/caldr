@@ -1,44 +1,29 @@
 .fixtureCount {
-	>h1 {
-		color: var(--text);
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+
+	>span {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
 	}
 
-	table {
-		tr {
+	>div {
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+		align-items: start;
 
-			th,
-			td {
-				border: 1px solid var(--border);
-			}
+		>table {
+			flex: 1;
 		}
 	}
 }
 
-.demandSummary {
-	background: var(--bg);
-	border: 1px solid var(--border);
-	border-radius: 8px;
-	padding: 18px 18px 16px 18px;
-
-	>h2 {
-		margin-top: 0;
-		color: var(--text);
-		font-size: 1.2rem;
-	}
-
-	>ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-
-		>li {
-			display: flex;
-			justify-content: space-between;
-			margin-bottom: 0.5rem;
-
-			>span {
-				font-weight: bold;
-			}
-		}
+.disabled {
+	td {
+		background-color: var(--warning);
+		color: var(--highlight);
 	}
 }

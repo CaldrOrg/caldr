@@ -10,7 +10,7 @@
 | Dental lavatory         |                                                                                                                |             | 1       | 1.25                     |
 | Dental unit or cuspidor |                                                                                                                |             | 1       | 1.25                     |
 | Dishwashing machine     |                                                                                                                | Domestic    | 2       | 1.5                      |
-| Drinking fountain       |                                                                                                                |             | 0.5     | 1.25                     |
+| Drinking Fountain       |                                                                                                                |             | 0.5     | 1.25                     |
 | Floor drain             | Emergency                                                                                                      |             | 0       | 2                        |
 | Floor drain             |                                                                                                                |             | 2       | 2                        |
 | Sink, Floor             |                                                                                                                |             |         | 2                        |

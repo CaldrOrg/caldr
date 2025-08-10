@@ -4,13 +4,15 @@ import type { CaldrStore } from ".";
 import type { Fixture } from "../model/Fixture";
 
 export interface FixtureCountSlice {
-	knownFixtures: Fixture[];
+	knownFixtures: (Fixture & { uuid: string; })[];
 	knownOccupancies: string[];
 
-	fixtureCode: "ipc" | "upc";
-	setFixtureCode: (code: "ipc" | "upc") => void;
+	plumbingCode: "ipc" | "upc";
+	setPlumbingCode: (plumbingCode: "ipc" | "upc") => void;
 
-	fixturesCount: Map<string, number>;
+	fixturesCount: Record<string, number>;
+	getFixture(uuid: string): Fixture | undefined;
+	addFixture(uuid: string, count: number): void;
 
 	getFixtureCount: () => Fixture[];
 
@@ -28,19 +30,31 @@ export interface FixtureCountSlice {
 }
 
 export const createFixtureCountSlice: StateCreator<CaldrStore, [], [], FixtureCountSlice> = (set, get) => ({
-	knownFixtures: fixtures,
+	knownFixtures: fixtures.map(f => ({
+		...f,
+		uuid: crypto.randomUUID(),
+	})),
 	knownOccupancies: Array.from(new Set(fixtures.map(f => f.occupancy))).sort(),
 
-	fixtureCode: "ipc",
-	setFixtureCode: (fixtureCode: "ipc" | "upc") => set({ fixtureCode }),
+	plumbingCode: "ipc",
+	setPlumbingCode: (plumbingCode: "ipc" | "upc") => set({ plumbingCode }),
 
-	fixturesCount: new Map(),
+	fixturesCount: {},
+	getFixture: (uuid: string) => get().knownFixtures.find(f => f.uuid === uuid),
+	addFixture: (uuid: string, count: number) => set({ fixturesCount: { ...get().fixturesCount, [uuid]: (get().fixturesCount[uuid] ?? 0) + count } }),
 
-	getFixtureCount: () => [], // TODO
+	getFixtureCount: () => Object
+		.entries(get().fixturesCount)
+		.map(([uuid, count]) => {
+			const fixture = get().getFixture(uuid);
+			return fixture && new Array(count).fill(fixture);
+		})
+		.filter(Boolean)
+		.flat(),
 
-	getTotalWsfu: () => 0,
-	getTotalHwsfu: () => 0,
-	getTotalDfu: () => 0,
+	getTotalWsfu: () => get().getFixtureCount().reduce((p, c) => p + get().plumbingCode === "ipc" ? c.ipc_sfu_total : c.upc_sfu, 0),
+	getTotalHwsfu: () => get().getFixtureCount().reduce((p, c) => p + (c.ipc_sfu_hot ?? 0), 0),
+	getTotalDfu: () => get().getFixtureCount().reduce((p, c) => p + get().plumbingCode === "ipc" ? c.ipc_dfu : c.upc_dfu, 0),
 
 	getTotalWsfuGpm: () => get().wsfuToGpm(get().getTotalWsfu()),
 	getTotalHwsfuGpm: () => get().hwsfuToGpm(get().getTotalHwsfu()),
