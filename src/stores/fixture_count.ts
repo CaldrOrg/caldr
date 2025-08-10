@@ -11,22 +11,22 @@ export interface FixtureCountSlice {
 	setPlumbingCode: (plumbingCode: "ipc" | "upc") => void;
 
 	fixturesCount: Record<string, number>;
-	getFixture(uuid: string): Fixture | undefined;
-	addFixture(uuid: string, count: number): void;
+	getFixture: (uuid: string) => Fixture | undefined;
+	addFixture: (uuid: string, count: number) => void;
 
 	getFixtureCount: () => Fixture[];
 
-	getTotalWsfu(): number;
-	getTotalHwsfu(): number;
-	getTotalDfu(): number;
+	getTotalWsfu: () => number;
+	getTotalHwsfu: () => number;
+	getTotalDfu: () => number;
 
-	getTotalWsfuGpm(): number;
-	getTotalHwsfuGpm(): number;
-	getTotalDfuGpm(): number;
+	getTotalWsfuGpm: () => number;
+	getTotalHwsfuGpm: () => number;
+	getTotalDfuGpm: () => number;
 
-	getTotalHvacDemand(): number;
-	getTotalIrrigationDemand(): number;
-	getTotalOtherDemand(): number;
+	getTotalHvacDemand: () => number;
+	getTotalIrrigationDemand: () => number;
+	getTotalOtherDemand: () => number;
 }
 
 export const createFixtureCountSlice: StateCreator<CaldrStore, [], [], FixtureCountSlice> = (set, get) => ({

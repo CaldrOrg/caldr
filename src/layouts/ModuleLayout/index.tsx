@@ -1,12 +1,12 @@
 import CaldrLogo from "@assets/caldr_logo.png";
-import { IconFileSettings, IconMoon, IconSun } from "@tabler/icons-react";
+import { IconFileSettings, IconMoon, IconPrinter, IconSun } from "@tabler/icons-react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useCaldrStore } from "../../stores";
 import styles from "./styles.module.scss";
 
 export default function ModuleLayout({ children, moduleName, moduleDescription, className }: ModuleLayoutProps) {
-	const { toggleTheme, theme } = useCaldrStore();
+	const { toggleTheme, theme, printPage } = useCaldrStore();
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -31,6 +31,11 @@ export default function ModuleLayout({ children, moduleName, moduleDescription, 
 					title="Project Settings"
 					disabled={location?.pathname === "/project_settings"}>
 					<IconFileSettings />
+				</button>
+				<button
+					onClick={printPage}
+					title="Print Page">
+					<IconPrinter />
 				</button>
 				<button
 					onClick={toggleTheme}

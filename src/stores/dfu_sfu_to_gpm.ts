@@ -6,7 +6,7 @@ export interface DfuSfuToGpmSlice {
 	wsfuToGpm: (sfu: number) => number;
 	hwsfuToGpm: (sfu: number) => number;
 
-	round(value: number, precision?: number): number;
+	round: (value: number, precision?: number) => number;
 }
 
 export const createDfuSfuToGpmSlice: StateCreator<CaldrStore, [], [], DfuSfuToGpmSlice> = (_set, get) => ({

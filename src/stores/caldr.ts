@@ -5,6 +5,8 @@ export interface CaldrSlice {
 	theme: "light" | "dark";
 	setTheme: (theme: "light" | "dark") => void;
 	toggleTheme: () => void;
+
+	printPage: () => void;
 }
 
 export const createCaldrSlice: StateCreator<CaldrStore, [], [], CaldrSlice> = (set, get) => ({
@@ -15,5 +17,7 @@ export const createCaldrSlice: StateCreator<CaldrStore, [], [], CaldrSlice> = (s
 		document.documentElement.classList.toggle("light", theme === "light");
 		set({ theme });
 	},
-	toggleTheme: () => get().theme === "light" ? get().setTheme("dark") : get().setTheme("light")
+	toggleTheme: () => get().theme === "light" ? get().setTheme("dark") : get().setTheme("light"),
+
+	printPage: () => window.print(),
 });

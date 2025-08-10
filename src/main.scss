@@ -32,13 +32,13 @@
 	--info: hsl(217 22% 41%);
 }
 
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
 	:root {
 		@include theme-dark;
 	}
 }
 
-@media (prefers-color-scheme: light) {
+@media screen and (prefers-color-scheme: light) {
 	:root {
 		@include theme-light;
 	}
@@ -51,22 +51,26 @@
 	}
 }
 
-:root {
-	@include theme-light;
 
-	--table-odd-bg: var(--bg-light);
-	--table-odd-hover-bg: var(--bg);
-	--table-even-bg: var(--bg-dark);
-	--table-even-hover-bg: var(--bg);
+@media screen {
+	:root {
+		@include theme-light;
+
+		--table-odd-bg: var(--bg-light);
+		--table-odd-hover-bg: var(--bg);
+		--table-even-bg: var(--bg-dark);
+		--table-even-hover-bg: var(--bg);
+	}
+
+	html.light {
+		@include theme-light;
+	}
+
+	html.dark {
+		@include theme-dark;
+	}
 }
 
-html.light {
-	@include theme-light;
-}
-
-html.dark {
-	@include theme-dark;
-}
 
 body {
 	background-color: var(--bg-dark);
