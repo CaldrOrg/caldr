@@ -1,5 +1,5 @@
 import { useCaldrStore } from "@stores/index";
-import { IconBrandGithub, IconFileSettings, IconMoon, IconPrinter, IconSun } from "@tabler/icons-react";
+import { IconBarrierBlock, IconBrandGithub, IconFileSettings, IconMoon, IconPrinter, IconSun } from "@tabler/icons-react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router";
 import styles from "./styles.module.scss";
@@ -53,7 +53,11 @@ export default function ModuleLayout({ children, moduleName, moduleDescription, 
 				<button onClick={() => navigate(-1)}>← Back</button>
 			</nav>
 			<main {...{ className }}>
-				{children}
+				{children ?? <div className={styles.wip}>
+					<h1>Work in Progress</h1>
+					<h2>Check back soon!</h2>
+					<IconBarrierBlock />
+				</div>}
 			</main>
 			<footer>
 				<p>
