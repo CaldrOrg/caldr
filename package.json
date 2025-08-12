@@ -39,5 +39,17 @@
 		"vite": "^7.0.4",
 		"vite-tsconfig-paths": "^5.1.4",
 		"vitest": "^3.2.4"
+	},
+	"overrides": {
+		"@tabler/icons-react": {
+			"react": "$react"
+		},
+		"react-helmet-async": {
+			"react": "$react"
+		},
+		"react-json-view": {
+			"react": "$react",
+			"react-dom": "$react-dom"
+		}
 	}
 }
