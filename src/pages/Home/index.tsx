@@ -1,17 +1,19 @@
-import CaldrLogo from "@assets/caldr_logo.png";
+import { useCaldrStore } from "@stores/index";
 import { Icon3dCubeSphere, IconArrowBarBoth, IconArrowsShuffle, IconBackhoe, IconBolt, IconBoxPadding, IconCalculator, IconCloudCog, IconCloudRain, IconCoffee, IconCylinder, IconDeviceWatchCog, IconDimensions, IconDroplet, IconDropletUp, IconEngine, IconFilter, IconFireHydrant, IconFiretruck, IconGauge, IconHomeEco, IconNut, IconRefresh, IconRipple, IconSection, IconTemperaturePlus, IconTower, IconTransfer, IconTransform, IconWashEco, IconWashTemperature3 } from "@tabler/icons-react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
 import styles from "./styles.module.scss";
 
 export default function Home({ }: HomeProps) {
+	const { theme } = useCaldrStore();
+
 	return (
 		<div className={styles.home}>
 			<Helmet>
 				<title>Home | Caldr</title>
 			</Helmet>
 
-			<img src={CaldrLogo} alt="Caldr Logo" />
+			<img src={theme === "light" ? "/caldr_logo.png" : "/caldr_logo_dark.png"} alt="Caldr Logo" />
 			<h1>Welcome to Caldr</h1>
 
 			<h2>🔧 Plumbing</h2>

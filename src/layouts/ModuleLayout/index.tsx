@@ -1,12 +1,12 @@
-import CaldrLogo from "@assets/caldr_logo.png";
-import { IconFileSettings, IconMoon, IconPrinter, IconSun } from "@tabler/icons-react";
+import { useCaldrStore } from "@stores/index";
+import { IconBrandGithub, IconFileSettings, IconMoon, IconPrinter, IconSun } from "@tabler/icons-react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router";
-import { useCaldrStore } from "../../stores";
 import styles from "./styles.module.scss";
 
 export default function ModuleLayout({ children, moduleName, moduleDescription, className }: ModuleLayoutProps) {
 	const { toggleTheme, theme, printPage } = useCaldrStore();
+
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -19,7 +19,7 @@ export default function ModuleLayout({ children, moduleName, moduleDescription, 
 
 			<header>
 				<Link to="/">
-					<img src={CaldrLogo} alt="Caldr Logo" />
+					<img src={theme === "light" ? "/caldr_logo.png" : "/caldr_logo_dark.png"} alt="Caldr Logo" />
 				</Link>
 				<div>
 					<h1>{moduleName}</h1>
@@ -40,9 +40,14 @@ export default function ModuleLayout({ children, moduleName, moduleDescription, 
 				<button
 					onClick={toggleTheme}
 					title="Toggle Theme">
-					{theme === "light" && <IconSun />}
-					{theme === "dark" && <IconMoon />}
+					{theme === "light" && <IconMoon />}
+					{theme === "dark" && <IconSun />}
 				</button>
+				<Link to="https://github.com/CaldrPro/caldr/tree/master" target="_blank">
+					<button>
+						<IconBrandGithub />
+					</button>
+				</Link>
 			</header>
 			<nav>
 				<button onClick={() => navigate(-1)}>← Back</button>

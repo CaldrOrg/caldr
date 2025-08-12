@@ -33,12 +33,79 @@ import WaterSoftener from "@pages/plumbing/WaterSoftener";
 import WaterUsage from "@pages/plumbing/WaterUsage";
 import ProjectSettings from "@pages/ProjectSettings";
 
-import { StrictMode } from "react";
+import { StrictMode, useCallback, useEffect, useMemo } from "react";
 import { createRoot } from "react-dom/client";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import "./main.scss";
+import { useCaldrStore } from "./stores";
+
+export function App() {
+	const { setTheme } = useCaldrStore();
+
+	const mediaQueryList = useMemo(() => window.matchMedia("(prefers-color-scheme: dark)"), []);
+	const handler = useCallback((event: MediaQueryListEvent) => setTheme(event.matches ? "dark" : "light"), [setTheme]);
+
+	useEffect(() => {
+		mediaQueryList.addEventListener("change", handler);
+		setTheme(mediaQueryList.matches ? "dark" : "light");
+
+		return () => {
+			mediaQueryList.removeEventListener("change", handler);
+		};
+	}, [mediaQueryList, handler, setTheme]);
+
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route index element={<Home />} />
+				<Route path="fixtures" element={<Fixtures />} />
+				<Route path="project_settings" element={<ProjectSettings />} />
+				<Route path="modules">
+					<Route path="plumbing">
+						<Route path="fixture_count" element={<FixtureCount />} />
+						<Route path="water_usage" element={<WaterUsage />} />
+						<Route path="dfu_sfu_to_gpm" element={<DfuSfuToGpm />} />
+						<Route path="flow_test" element={<FlowTest />} />
+						<Route path="street_pressure" element={<StreetPressure />} />
+						<Route path="water_pipe_sizer" element={<WaterPipeSizer />} />
+						<Route path="water_softener" element={<WaterSoftener />} />
+						<Route path="water_heater" element={<WaterHeater />} />
+						<Route path="hw_mixing_valve" element={<HwMixingValve />} />
+						<Route path="hw_recirculation" element={<HwRecirculation />} />
+						<Route path="kitchen_heater" element={<KitchenHeater />} />
+						<Route path="velocity_friction" element={<VelocityFriction />} />
+						<Route path="booster_pump" element={<BoosterPump />} />
+						<Route path="pipe_volume" element={<PipeVolume />} />
+						<Route path="thermal_expansion" element={<ThermalExpansion />} />
+						<Route path="linear_expansion" element={<LinearExpansion />} />
+						<Route path="building_drain" element={<BuildingDrain />} />
+						<Route path="roof_drainage" element={<RoofDrainage />} />
+						<Route path="storm_drain" element={<StormDrain />} />
+						<Route path="sump_pump" element={<SumpPump />} />
+						<Route path="sewage_pump" element={<SewagePump />} />
+						<Route path="cooling_tower" element={<CoolingTower />} />
+						<Route path="horsepower" element={<HorsePower />} />
+						<Route path="mechanical_coordination" element={<MechanicalCoordination />} />
+						<Route path="electrical_coordination" element={<ElectricalCoordination />} />
+					</Route>
+					<Route path="medical_gas">
+						<Route path="piping" element={<Piping />} />
+						<Route path="flow" element={<Flow />} />
+						<Route path="air_pump" element={<AirPump />} />
+						<Route path="vacuum_pump" element={<VacuumPump />} />
+					</Route>
+					<Route path="fire_protection">
+						<Route path="hydrant_flow_test" element={<HydrantFlowTest />} />
+						<Route path="fire_pump" element={<FirePump />} />
+					</Route>
+				</Route>
+			</Routes>
+		</BrowserRouter>
+	);
+}
+
 
 createRoot(document.getElementById("root")!)
 	.render(
@@ -49,52 +116,7 @@ createRoot(document.getElementById("root")!)
 					<link rel="icon" href="/favicon.png" />
 					<meta charSet="utf-8" />
 				</Helmet>
-				<BrowserRouter>
-					<Routes>
-						<Route index element={<Home />} />
-						<Route path="fixtures" element={<Fixtures />} />
-						<Route path="project_settings" element={<ProjectSettings />} />
-						<Route path="modules">
-							<Route path="plumbing">
-								<Route path="fixture_count" element={<FixtureCount />} />
-								<Route path="water_usage" element={<WaterUsage />} />
-								<Route path="dfu_sfu_to_gpm" element={<DfuSfuToGpm />} />
-								<Route path="flow_test" element={<FlowTest />} />
-								<Route path="street_pressure" element={<StreetPressure />} />
-								<Route path="water_pipe_sizer" element={<WaterPipeSizer />} />
-								<Route path="water_softener" element={<WaterSoftener />} />
-								<Route path="water_heater" element={<WaterHeater />} />
-								<Route path="hw_mixing_valve" element={<HwMixingValve />} />
-								<Route path="hw_recirculation" element={<HwRecirculation />} />
-								<Route path="kitchen_heater" element={<KitchenHeater />} />
-								<Route path="velocity_friction" element={<VelocityFriction />} />
-								<Route path="booster_pump" element={<BoosterPump />} />
-								<Route path="pipe_volume" element={<PipeVolume />} />
-								<Route path="thermal_expansion" element={<ThermalExpansion />} />
-								<Route path="linear_expansion" element={<LinearExpansion />} />
-								<Route path="building_drain" element={<BuildingDrain />} />
-								<Route path="roof_drainage" element={<RoofDrainage />} />
-								<Route path="storm_drain" element={<StormDrain />} />
-								<Route path="sump_pump" element={<SumpPump />} />
-								<Route path="sewage_pump" element={<SewagePump />} />
-								<Route path="cooling_tower" element={<CoolingTower />} />
-								<Route path="horsepower" element={<HorsePower />} />
-								<Route path="mechanical_coordination" element={<MechanicalCoordination />} />
-								<Route path="electrical_coordination" element={<ElectricalCoordination />} />
-							</Route>
-							<Route path="medical_gas">
-								<Route path="piping" element={<Piping />} />
-								<Route path="flow" element={<Flow />} />
-								<Route path="air_pump" element={<AirPump />} />
-								<Route path="vacuum_pump" element={<VacuumPump />} />
-							</Route>
-							<Route path="fire_protection">
-								<Route path="hydrant_flow_test" element={<HydrantFlowTest />} />
-								<Route path="fire_pump" element={<FirePump />} />
-							</Route>
-						</Route>
-					</Routes>
-				</BrowserRouter>
+				<App />
 			</HelmetProvider>
 		</StrictMode>
 	);

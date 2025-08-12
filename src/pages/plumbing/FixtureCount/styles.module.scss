@@ -17,6 +17,28 @@
 
 		>table {
 			flex: 1;
+			font-size: 0.875rem;
+
+			>tbody {
+				>tr {
+					>td {
+						&:nth-child(1) {
+
+							>input {
+								width: 50px;
+							}
+
+							>button {
+								padding: 0.125rem 0.25rem;
+							}
+						}
+
+						&:nth-child(2) {
+							font-weight: bold;
+						}
+					}
+				}
+			}
 		}
 	}
 }

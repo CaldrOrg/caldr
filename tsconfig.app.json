@@ -35,6 +35,9 @@
 			"@layouts/*": [
 				"src/layouts/*"
 			],
+			"@model/*": [
+				"src/model/*"
+			],
 			"@pages/*": [
 				"src/pages/*"
 			],
