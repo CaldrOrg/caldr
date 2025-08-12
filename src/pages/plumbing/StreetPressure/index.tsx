@@ -1,4 +1,4 @@
-import ModuleLayout from "../../../layouts/ModuleLayout";
+import ModuleLayout from "@layouts/ModuleLayout";
 
 export default function StreetPressure({ }: StreetPressureProps) {
 	return (

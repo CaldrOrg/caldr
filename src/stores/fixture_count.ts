@@ -1,7 +1,7 @@
 import fixtures from "@assets/fixtures";
+import type { Fixture } from "@model/Fixture";
 import type { StateCreator } from "zustand";
 import type { CaldrStore } from ".";
-import type { Fixture } from "../model/Fixture";
 
 export interface FixtureCountSlice {
 	knownFixtures: (Fixture & { uuid: string; })[];
