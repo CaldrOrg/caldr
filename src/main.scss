@@ -17,7 +17,7 @@
 
 @mixin theme-light {
 	--bg-dark: hsl(204 22% 90%);
-	--bg: hsl(204 45% 95%);
+	--bg: hsl(204 30% 95%);
 	--bg-light: hsl(204 100% 100%);
 	--text: hsl(204 64% 4%);
 	--text-muted: hsl(204 14% 28%);
@@ -144,4 +144,15 @@ button {
 		color: var(--text-muted) !important;
 		cursor: default;
 	}
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
 }

@@ -107,8 +107,8 @@ const foo = (fixture_names
 		other: +f.other || 0,
 	}))
 	.filter(f =>
-		(f.ipc_dfu || f.upc_dfu) &&
-		(f.ipc_sfu_cold || f.ipc_sfu_hot || f.ipc_sfu_total || f.upc_sfu))
+		((f.ipc_dfu) && (f.ipc_sfu_cold || f.ipc_sfu_hot || f.ipc_sfu_total)) ||
+		((f.upc_dfu) && (f.upc_sfu)))
 	.sort((a, b) => a.fixture.localeCompare(b.fixture)
 		|| a.variant.localeCompare(b.variant)
 		|| a.occupancy.localeCompare(b.occupancy)
