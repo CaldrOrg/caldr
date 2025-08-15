@@ -1,8 +1,7 @@
 import ModuleLayout from "@layouts/ModuleLayout";
 import { useCaldrStore } from "@stores/index";
 import { useState } from "react";
-
-import styles from "./styles.module.scss";
+import { ConversionCard } from "./ConversionCard";
 
 export default function DfuStuToGpm({ }: DfuStuToGpmProps) {
 	const { dfuToGpm, wsfuToGpm, hwsfuToGpm } = useCaldrStore();
@@ -15,55 +14,35 @@ export default function DfuStuToGpm({ }: DfuStuToGpmProps) {
 		<>
 			<ModuleLayout
 				moduleName="DFU / WSFU to GPM Conversion Calculator"
-				moduleDescription="Convert Drainage, Supply, and Hot Water Fixture Units to Flow Rate"
-				className={styles.dfuSfuToGpm}>
+				moduleDescription="Convert Drainage, Supply, and Hot Water Fixture Units to Flow Rate">
 
-				<div>
-					<label htmlFor="dfu">
-						Drainage Fixture Units (DFU)
-					</label>
-					<div>
-						<input
-							id="dfu"
-							type="number"
-							placeholder="0"
-							value={dfu}
-							onChange={e => setDfu(e.currentTarget.valueAsNumber)} />
-						<span>x 0.5 = {dfuToGpm(dfu || 0)} GPM</span>
-					</div>
-					<small>GPM = DFU x 0.5</small>
-				</div>
+				<div className="middle">
+					<ConversionCard
+						title="DFU to GPM"
+						inputValue={dfu}
+						outputValue={isNaN(dfu) ? "" : dfuToGpm(dfu) + ""}
+						setInputValue={setDfu}
+						inputLabel="Drainage Fixture Units (DFU)"
+						outputLabel="Gallons Per Minute (GPM)"
+						formula="GPM = DFU x 0.5" />
 
-				<div>
-					<label htmlFor="wsfu">
-						Water Supply Fixture Units (WSFU)
-					</label>
-					<div>
-						<input
-							id="wsfu"
-							type="number"
-							placeholder="0"
-							value={wsfu}
-							onChange={e => setWsfu(e.currentTarget.valueAsNumber)} />
-						<span>x 0.6 = {wsfuToGpm(wsfu || 0)} GPM</span>
-					</div>
-					<small>GPM = WSFU x 0.6</small>
-				</div>
+					<ConversionCard
+						title="WSFU to GPM"
+						inputValue={wsfu}
+						outputValue={isNaN(wsfu) ? "" : wsfuToGpm(wsfu) + ""}
+						setInputValue={setWsfu}
+						inputLabel="Water Supply Fixture Units (WSFU)"
+						outputLabel="Gallons Per Minute (GPM)"
+						formula="GPM = WSFU x 0.6" />
 
-				<div>
-					<label htmlFor="hwsfu">
-						Hot Water Supply Fixture Units (HWSFU)
-					</label>
-					<div>
-						<input
-							id="hwsfu"
-							type="number"
-							placeholder="0"
-							value={hwsfu}
-							onChange={e => setHwsfu(e.currentTarget.valueAsNumber)} />
-						<span>x 0.7 = {hwsfuToGpm(hwsfu || 0)} GPM</span>
-					</div>
-					<small>GPM = HWSFU x 0.7</small>
+					<ConversionCard
+						title="HWSFU to GPM"
+						inputValue={hwsfu}
+						outputValue={isNaN(hwsfu) ? "" : hwsfuToGpm(hwsfu) + ""}
+						setInputValue={setHwsfu}
+						inputLabel="Hot Water Supply Fixture Units (HWSFU)"
+						outputLabel="Gallons Per Minute (GPM)"
+						formula="GPM = HWSFU x 0.7" />
 				</div>
 
 			</ModuleLayout>

@@ -1,53 +1,13 @@
-.home {
-	margin: 2rem auto;
-	text-align: center;
-	width: min-content;
+.logo {
+	height: 100px;
+}
 
-	>img {
-		height: 80px;
-	}
-
-	>h1 {}
-
-	>h2 {
-		text-align: center;
-		font-size: 1.5rem;
-		font-weight: 600;
-		margin-bottom: 0.75rem;
-		padding-bottom: 4px;
-		border-bottom: 2px solid var(--border-muted);
-		color: var(--primary);
-	}
+.section {
+	margin-bottom: 0.75rem !important;
 }
 
 .grid {
 	display: grid;
-	grid-template-columns: repeat(5, 200px);
-	gap: 1rem;
-
-	>a {
-		background: var(--bg-light);
-		padding: 14px 16px;
-		border-radius: 8px;
-		font-size: 1rem;
-		text-decoration: none;
-		color: var(--text);
-		box-shadow: 0 1px 3px #0000001a;
-		font-weight: 600;
-
-		display: inline-flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-
-		>svg {
-			flex: 0 0 auto;
-		}
-
-		>span {
-			display: inline-block;
-			text-align: center;
-			flex: 1 1;
-		}
-	}
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 0.5rem 0;
 }

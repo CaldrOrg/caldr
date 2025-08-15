@@ -12,9 +12,12 @@
 	},
 	"dependencies": {
 		"@tabler/icons-react": "2",
+		"beercss": "^3.11.33",
 		"clsx": "^2.1.1",
 		"fast-equals": "^5.2.2",
+		"material-dynamic-colors": "^1.1.2",
 		"parse-markdown-table": "^0.0.6",
+		"randomcolor": "^0.6.2",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"react-helmet-async": "^2.0.5",
@@ -27,6 +30,7 @@
 	"devDependencies": {
 		"@eslint/js": "^9.30.1",
 		"@rollup/plugin-dsv": "^3.0.5",
+		"@types/randomcolor": "^0.5.9",
 		"@types/react": "^19.1.8",
 		"@types/react-dom": "^19.1.6",
 		"@vitejs/plugin-react": "^4.6.0",
@@ -50,6 +54,9 @@
 		"react-json-view": {
 			"react": "$react",
 			"react-dom": "$react-dom"
+		},
+		"flux": {
+			"react": "$react"
 		}
 	}
 }

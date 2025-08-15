@@ -13,6 +13,7 @@ export interface FixtureCountSlice {
 	fixturesCount: Record<string, number>;
 	getFixture: (uuid: string) => Fixture | undefined;
 	addFixture: (uuid: string, count: number) => void;
+	removeFixture: (uuid: string) => void;
 
 	getFixtureCount: () => Fixture[];
 
@@ -41,7 +42,14 @@ export const createFixtureCountSlice: StateCreator<CaldrStore, [], [], FixtureCo
 
 	fixturesCount: {},
 	getFixture: (uuid: string) => get().knownFixtures.find(f => f.uuid === uuid),
-	addFixture: (uuid: string, count: number) => set({ fixturesCount: { ...get().fixturesCount, [uuid]: (get().fixturesCount[uuid] ?? 0) + count } }),
+	addFixture: (uuid: string, count: number) => (get().fixturesCount[uuid] ?? 0) + count > 0
+		? set({ fixturesCount: { ...get().fixturesCount, [uuid]: (get().fixturesCount[uuid] ?? 0) + count } })
+		: get().removeFixture(uuid),
+	removeFixture: (uuid: string) => {
+		const fixturesCount = { ...get().fixturesCount };
+		delete fixturesCount[uuid];
+		set({ fixturesCount });
+	},
 
 	getFixtureCount: () => Object
 		.entries(get().fixturesCount)
@@ -52,9 +60,15 @@ export const createFixtureCountSlice: StateCreator<CaldrStore, [], [], FixtureCo
 		.filter(Boolean)
 		.flat(),
 
-	getTotalWsfu: () => get().getFixtureCount().reduce((p, c) => p + get().plumbingCode === "ipc" ? c.ipc_sfu_total : c.upc_sfu, 0),
-	getTotalHwsfu: () => get().getFixtureCount().reduce((p, c) => p + (c.ipc_sfu_hot ?? 0), 0),
-	getTotalDfu: () => get().getFixtureCount().reduce((p, c) => p + get().plumbingCode === "ipc" ? c.ipc_dfu : c.upc_dfu, 0),
+	getTotalWsfu: () => get().round(get()
+		.getFixtureCount()
+		.reduce((p, c) => p + (get().plumbingCode === "ipc" ? c.ipc_sfu_total : c.upc_sfu), 0)),
+	getTotalHwsfu: () => get().round(get()
+		.getFixtureCount()
+		.reduce((p, c) => p + (c.ipc_sfu_hot ?? 0), 0)),
+	getTotalDfu: () => get().round(get()
+		.getFixtureCount()
+		.reduce((p, c) => p + (get().plumbingCode === "ipc" ? c.ipc_dfu : c.upc_dfu), 0)),
 
 	getTotalWsfuGpm: () => get().wsfuToGpm(get().getTotalWsfu()),
 	getTotalHwsfuGpm: () => get().hwsfuToGpm(get().getTotalHwsfu()),

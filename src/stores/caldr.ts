@@ -12,9 +12,8 @@ export interface CaldrSlice {
 export const createCaldrSlice: StateCreator<CaldrStore, [], [], CaldrSlice> = (set, get) => ({
 	theme: "light",
 	setTheme: (theme) => {
-		document.documentElement.setAttribute("data-theme", theme);
-		document.documentElement.classList.toggle("dark", theme === "dark");
-		document.documentElement.classList.toggle("light", theme === "light");
+		document.body.classList.remove(get().theme);
+		document.body.classList.add(theme);
 		set({ theme });
 	},
 	toggleTheme: () => get().theme === "light" ? get().setTheme("dark") : get().setTheme("light"),

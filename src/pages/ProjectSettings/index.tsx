@@ -1,8 +1,6 @@
 import ModuleLayout from "@layouts/ModuleLayout";
 import { useCaldrStore } from "@stores/index";
 
-import styles from "./styles.module.scss";
-
 export default function ProjectSettings({ }: ProjectSettingsProps) {
 	const {
 		projectName,
@@ -22,69 +20,78 @@ export default function ProjectSettings({ }: ProjectSettingsProps) {
 			<ModuleLayout
 				moduleName="Project Settings"
 				moduleDescription="Configure project details and settings for your plumbing design."
-				className={styles.projectSettings}>
+				className="responsive">
 
 				<h1>Project Settings</h1>
 
-				<h2>General Settings</h2>
+				<h3>General Settings</h3>
 
-				<label>
-					Project Name
-					<input
-						type="text"
-						placeholder="Enter project name"
-						defaultValue={projectName}
-						onChange={e => setProjectName(e.currentTarget.value)} />
-				</label>
-				<label>
-					Project Number
-					<input
-						type="text"
-						placeholder="Enter project number"
-						defaultValue={projectNumber}
-						onChange={e => setProjectNumber(e.currentTarget.value)} />
-				</label>
-				<label>
-					Date
-					<input
-						type="date"
-						defaultValue={projectDate}
-						onChange={e => setProjectDate(e.currentTarget.value)} />
-				</label>
-				<label>
-					Designer / Engineer
-					<input
-						type="text"
-						placeholder="Enter name"
-						defaultValue={projectDesignerEngineer}
-						onChange={e => setProjectDesignerEngineer(e.currentTarget.value)} />
-				</label>
+				<fieldset className="grid">
+					<legend>Project Information</legend>
 
-				<h2>Plumbing Settings</h2>
+					<div className="s3 field label prefix border">
+						<i>assignment</i>
+						<input
+							type="text"
+							defaultValue={projectName}
+							onChange={e => setProjectName(e.currentTarget.value)} />
+						<label>Project Name</label>
+					</div>
 
-				<label>
-					Plumbing Code
-					<span>
-						<label>
-							IPC
+					<div className="s3 field label prefix border">
+						<i>numbers</i>
+						<input
+							type="text"
+							defaultValue={projectNumber}
+							onChange={e => setProjectNumber(e.currentTarget.value)} />
+						<label>Project Number</label>
+					</div>
+
+					<div className="s3 field label prefix border">
+						<i>date_range</i>
+						<input
+							type="date"
+							defaultValue={projectDate}
+							onChange={e => setProjectDate(e.currentTarget.value)} />
+						<label>Date</label>
+					</div>
+
+					<div className="s3 field label prefix border">
+						<i>engineering</i>
+						<input
+							type="text"
+							defaultValue={projectDesignerEngineer}
+							onChange={e => setProjectDesignerEngineer(e.currentTarget.value)} />
+						<label>Designer / Engineer</label>
+					</div>
+				</fieldset>
+
+
+				<h3>Plumbing Settings</h3>
+
+				<fieldset>
+					<legend>Plumbing Code</legend>
+					<nav>
+						<label className="radio">
 							<input
 								type="radio"
 								name="plumbingCode"
 								value="ipc"
 								checked={plumbingCode === "ipc"}
 								onChange={() => setPlumbingCode("ipc")} />
+							<span>IPC</span>
 						</label>
-						<label>
-							UPC
+						<label className="radio">
 							<input
 								type="radio"
 								name="plumbingCode"
 								value="upc"
 								checked={plumbingCode === "upc"}
 								onChange={() => setPlumbingCode("upc")} />
+							<span>UPC</span>
 						</label>
-					</span>
-				</label>
+					</nav>
+				</fieldset>
 			</ModuleLayout>
 		</>
 	);

@@ -38,8 +38,12 @@ import { createRoot } from "react-dom/client";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { BrowserRouter, Route, Routes } from "react-router";
 
-import "./main.scss";
 import { useCaldrStore } from "./stores";
+
+import "beercss";
+import "material-dynamic-colors";
+
+import "./main.scss";
 
 export function App() {
 	const { setTheme } = useCaldrStore();

@@ -1,8 +1,9 @@
 import { useCaldrStore } from "@stores/index";
-import { IconBarrierBlock, IconBrandGithub, IconFileSettings, IconMoon, IconPrinter, IconSun } from "@tabler/icons-react";
+import { IconBrandGithub, IconFileSettings, IconMoon, IconPrinter, IconSun } from "@tabler/icons-react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router";
-import styles from "./styles.module.scss";
+
+import WorkInProgress from "./WorkInProgress";
 
 export default function ModuleLayout({ children, moduleName, moduleDescription, className }: ModuleLayoutProps) {
 	const { toggleTheme, theme, printPage } = useCaldrStore();
@@ -11,53 +12,65 @@ export default function ModuleLayout({ children, moduleName, moduleDescription, 
 	const location = useLocation();
 
 	return (
-		<div className={styles.moduleLayout}>
+		<div>
 			<Helmet>
 				<title>{moduleName} | Caldr</title>
 				<meta name="description" content={moduleDescription} />
 			</Helmet>
 
-			<header>
-				<Link to="/">
-					<img src={theme === "light" ? "/caldr_logo.png" : "/caldr_logo_dark.png"} alt="Caldr Logo" />
-				</Link>
-				<div>
-					<h1>{moduleName}</h1>
-					<h2>{moduleDescription}</h2>
-				</div>
-				<span className={styles.spacer}></span>
-				<button
-					onClick={() => navigate("/project_settings")}
-					title="Project Settings"
-					disabled={location?.pathname === "/project_settings"}>
-					<IconFileSettings />
-				</button>
-				<button
-					onClick={printPage}
-					title="Print Page">
-					<IconPrinter />
-				</button>
-				<button
-					onClick={toggleTheme}
-					title="Toggle Theme">
-					{theme === "light" && <IconMoon />}
-					{theme === "dark" && <IconSun />}
-				</button>
-				<Link to="https://github.com/CaldrPro/caldr/tree/master" target="_blank">
-					<button>
-						<IconBrandGithub />
+			<header
+				className="primary-container"
+				style={{ position: "sticky", top: 0, zIndex: 2 }}>
+				<nav>
+					<button
+						onClick={() => navigate(-1)}
+						className="circle transparent">
+						<i>arrow_back</i>
+						<div className="tooltip bottom">Back</div>
 					</button>
-				</Link>
+					<Link to="/">
+						<img
+							src={theme === "light" ? "/caldr_logo.png" : "/caldr_logo_dark.png"}
+							alt="Caldr Logo"
+							height="50px" />
+					</Link>
+					<h6>{moduleName}</h6>
+					<span className="max">{moduleDescription}</span>
+					<button
+						className="circle transparent"
+						onClick={() => navigate("/project_settings")}
+						disabled={location?.pathname === "/project_settings"}>
+						<IconFileSettings />
+						<div className="tooltip bottom">Project Settings</div>
+					</button>
+					<button
+						className="circle transparent"
+						onClick={printPage}>
+						<IconPrinter />
+						<div className="tooltip bottom">Print Page</div>
+					</button>
+					<button
+						className="circle transparent"
+						onClick={toggleTheme}
+						title="Toggle Theme">
+						{theme === "light" && <IconMoon />}
+						{theme === "dark" && <IconSun />}
+						<div className="tooltip bottom">Toggle Theme</div>
+					</button>
+					<Link
+						to="https://github.com/CaldrPro/caldr/tree/master"
+						target="_blank">
+						<button className="circle transparent">
+							<IconBrandGithub />
+							<div className="tooltip bottom">Source Code</div>
+						</button>
+					</Link>
+				</nav>
 			</header>
-			<nav>
-				<button onClick={() => navigate(-1)}>← Back</button>
-			</nav>
-			<main {...{ className }}>
-				{children ?? <div className={styles.wip}>
-					<h1>Work in Progress</h1>
-					<h2>Check back soon!</h2>
-					<IconBarrierBlock />
-				</div>}
+			<main
+				{...{ className }}
+				style={{ overflow: "initial" }}>
+				{children ?? <WorkInProgress />}
 			</main>
 			<footer>
 				<p>

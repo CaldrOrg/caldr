@@ -1,7 +1,7 @@
 import { useCaldrStore } from "@stores/index";
-import styles from "./styles.module.scss";
+import clsx from "clsx";
 
-export default function DemandSummary({ }: DemandSummaryProps) {
+export default function DemandSummary({ className }: DemandSummaryProps) {
 	const {
 		plumbingCode,
 		getTotalWsfu,
@@ -15,26 +15,55 @@ export default function DemandSummary({ }: DemandSummaryProps) {
 		getTotalOtherDemand
 	} = useCaldrStore();
 	return (
-		<div className={styles.demandSummary}>
-			<h2>Fixture Demand Summary</h2>
+		<article className={clsx("border", className)}>
+			<h5>Fixture Demand Summary</h5>
 
-			<ul>
-				<li><span>Total WSFU: </span>{getTotalWsfu()}</li>
-				{plumbingCode === "ipc" && <li><span>Total HWSFU: </span>{getTotalHwsfu()}</li>}
-				<li><span>Total DFU: </span>{getTotalDfu()}</li>
+			<div className="space" />
+
+			<ul className="list no-space">
+				<li>
+					<h6 className="max small">Total DFU</h6>
+					<label>{getTotalDfu()}</label>
+				</li>
+				<li>
+					<h6 className="max small">Total WSFU</h6>
+					<label>{getTotalWsfu()}</label>
+				</li>
+				{plumbingCode === "ipc" && <li>
+					<h6 className="max small">Total HWSFU</h6>
+					<label>{getTotalHwsfu()}</label>
+				</li>}
 				<hr />
-				<li><span>WSFU GPM: </span>{getTotalWsfuGpm()}</li>
-				{plumbingCode === "ipc" && <li><span>HWSFU GPM: </span>{getTotalHwsfuGpm()}</li>}
-				<li><span>DFU GPM: </span>{getTotalDfuGpm()}</li>
+				<li>
+					<h6 className="max small">DFU GPM</h6>
+					<label>{getTotalDfuGpm()}</label>
+				</li>
+				<li>
+					<h6 className="max small">WSFU GPM</h6>
+					<label>{getTotalWsfuGpm()}</label>
+				</li>
+				{plumbingCode === "ipc" && <li>
+					<h6 className="max small">HWSFU GPM</h6>
+					<label>{getTotalHwsfuGpm()}</label>
+				</li>}
 				<hr />
-				<li><span>HVAC Demand: </span>{getTotalHvacDemand()}</li>
-				<li><span>Irrigation Demand: </span>{getTotalIrrigationDemand()}</li>
-				<li><span>Other Demand: </span>{getTotalOtherDemand()}</li>
+				<li>
+					<h6 className="max small">HVAC Demand</h6>
+					<label>{getTotalHvacDemand()}</label>
+				</li>
+				<li>
+					<h6 className="max small">Irrigation Demand</h6>
+					<label>{getTotalIrrigationDemand()}</label>
+				</li>
+				<li>
+					<h6 className="max small">Other Demand</h6>
+					<label>{getTotalOtherDemand()}</label>
+				</li>
 			</ul>
-		</div>
+		</article>
 	);
 }
 
-interface DemandSummaryProps {
+interface DemandSummaryProps extends React.HTMLAttributes<HTMLElement> {
 
 }

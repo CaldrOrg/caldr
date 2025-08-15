@@ -1,0 +1,14 @@
+.card {
+	width: fit-content;
+	margin-inline: auto;
+
+	input {
+		max-width: 100px;
+	}
+}
+
+.label {
+	border-radius: 0;
+	padding: 0.25rem 0.5rem;
+	min-width: 20rem;
+}
