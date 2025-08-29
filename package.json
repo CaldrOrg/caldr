@@ -15,6 +15,7 @@
 		"beercss": "^3.11.33",
 		"clsx": "^2.1.1",
 		"fast-equals": "^5.2.2",
+		"formik": "^2.4.6",
 		"material-dynamic-colors": "^1.1.2",
 		"parse-markdown-table": "^0.0.6",
 		"randomcolor": "^0.6.2",
@@ -41,6 +42,7 @@
 		"typescript": "~5.8.3",
 		"typescript-eslint": "^8.35.1",
 		"vite": "^7.0.4",
+		"vite-bundle-analyzer": "^1.2.1",
 		"vite-tsconfig-paths": "^5.1.4",
 		"vitest": "^3.2.4"
 	},

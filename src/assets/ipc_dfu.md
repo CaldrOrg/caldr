@@ -28,7 +28,7 @@
 | Urinal                  | 1 gallon per flush or less                                                                                     |             | 2       | 0                        |
 | Urinal                  | Nonwater supplied                                                                                              |             | 0.5     | 0                        |
 | Sink, Wash              | Circular or multiple, each set of faucets                                                                      |             | 2       | 1.5                      |
-| Water closet            | Flushometer tank, public or private                                                                            |             | 4       | 0                        |
-| Water closet            | 1.6 gpf                                                                                                        | Private     | 3       | 0                        |
-| Water closet            | Flushing greater than 1.6 gpf                                                                                  | Private     | 4       | 0                        |
-| Water closet            | 1.6 gpf                                                                                                        | Public      | 4       | 0                        |
+| Water Closet            | Flushometer tank, public or private                                                                            |             | 4       | 0                        |
+| Water Closet            | 1.6 gpf                                                                                                        | Private     | 3       | 0                        |
+| Water Closet            | Flushing greater than 1.6 gpf                                                                                  | Private     | 4       | 0                        |
+| Water Closet            | 1.6 gpf                                                                                                        | Public      | 4       | 0                        |

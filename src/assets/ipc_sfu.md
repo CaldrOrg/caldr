@@ -22,9 +22,9 @@
 | Washing machine     | 8 lb                    | Private           | Automatic                   | 1            | 1           | 1.4           | 0    | 0          | 0     |
 | Washing machine     | 8 lb                    | Public            | Automatic                   | 2.25         | 2.25        | 3             | 0    | 0          | 0     |
 | Washing machine     | 15 lb                   | Public            | Automatic                   | 3            | 3           | 4             | 0    | 0          | 0     |
-| Water closet        | Flushometer valve       | Private           | Flushometer valve           | 6            | 0           | 6             | 0    | 0          | 0     |
-| Water closet        | Flush tank              | Private           | Flush tank                  | 2.2          | 0           | 2.2           | 0    | 0          | 0     |
-| Water closet        | Flushometer valve       | Public            | Flushometer valve           | 10           | 0           | 10            | 0    | 0          | 0     |
-| Water closet        | Flush tank              | Public            | Flush tank                  | 5            | 0           | 5             | 0    | 0          | 0     |
-| Water closet        | Flushometer tank        | Public            | Flushometer tank            | 2            | 0           | 2             | 0    | 0          | 0     |
-| Water closet        | Flushometer tank        | Private           | Flushometer tank            | 2            | 0           | 2             | 0    | 0          | 0     |
+| Water Closet        | Flushometer valve       | Private           | Flushometer valve           | 6            | 0           | 6             | 0    | 0          | 0     |
+| Water Closet        | Flush tank              | Private           | Flush tank                  | 2.2          | 0           | 2.2           | 0    | 0          | 0     |
+| Water Closet        | Flushometer valve       | Public            | Flushometer valve           | 10           | 0           | 10            | 0    | 0          | 0     |
+| Water Closet        | Flush tank              | Public            | Flush tank                  | 5            | 0           | 5             | 0    | 0          | 0     |
+| Water Closet        | Flushometer tank        | Public            | Flushometer tank            | 2            | 0           | 2             | 0    | 0          | 0     |
+| Water Closet        | Flushometer tank        | Private           | Flushometer tank            | 2            | 0           | 2             | 0    | 0          | 0     |

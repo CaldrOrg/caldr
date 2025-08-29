@@ -20,6 +20,14 @@ export const mergeFixtures = (a: Row, b: Row) => ({
 	variant: [...new Set([...a.variant.split(" / "), ...b.variant.split(" / ")].filter(Boolean)).values()].join(" / "),
 });
 
+export const includes = ({ variant: va, ...a }: Row, { variant: vb, ...b }: Row) =>
+	Object.keys(b).every(key => key in b) &&
+	Object
+		.entries(b)
+		// @ts-ignore
+		.every(([key, value]) => a[key] === value) &&
+	va.includes(vb);
+
 export const mergeFixtureArrays = (a: Row[], b: Row[]) => {
 	if(!a.length) return b;
 	if(!b.length) return a;
@@ -34,7 +42,8 @@ export const mergeFixtureArrays = (a: Row[], b: Row[]) => {
 				if(!acc.some(row => deepEqual(row, merged))) acc.push(merged);
 			}
 			return acc;
-		}, [] as Row[]);
+		}, [] as Row[])
+		.filter((f, i, a) => !a.filter((_, j) => i !== j).some(g => includes(g, f)));
 };
 
 export const mergeFixtureGroups = (o: Record<string, Row[]>) => Object

@@ -14,6 +14,7 @@ export interface FixtureCountSlice {
 	getFixture: (uuid: string) => Fixture | undefined;
 	addFixture: (uuid: string, count: number) => void;
 	removeFixture: (uuid: string) => void;
+	addCustomFixture: (fixture: Fixture, count: number) => void;
 
 	getFixtureCount: () => Fixture[];
 
@@ -49,6 +50,12 @@ export const createFixtureCountSlice: StateCreator<CaldrStore, [], [], FixtureCo
 		const fixturesCount = { ...get().fixturesCount };
 		delete fixturesCount[uuid];
 		set({ fixturesCount });
+	},
+	addCustomFixture: (fixture: Fixture, count: number) => {
+		const uuid = crypto.randomUUID();
+		set(({ knownFixtures }) => ({ knownFixtures: [...knownFixtures, { ...fixture, uuid }] }));
+		get().addFixture(uuid, count);
+		if(!get().knownOccupancies.includes(fixture.occupancy)) set(({ knownOccupancies }) => ({ knownOccupancies: [...knownOccupancies, fixture.occupancy].toSorted() }));
 	},
 
 	getFixtureCount: () => Object

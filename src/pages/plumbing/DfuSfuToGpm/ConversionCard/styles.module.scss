@@ -5,6 +5,10 @@
 	input {
 		max-width: 100px;
 	}
+
+	>button {
+		pointer-events: none;
+	}
 }
 
 .label {

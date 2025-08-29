@@ -2,6 +2,7 @@
 import dsv from "@rollup/plugin-dsv";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { analyzer } from "vite-bundle-analyzer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -11,7 +12,6 @@ export default defineConfig({
 	plugins: [
 		tsconfigPaths(),
 		dsv({
-
 			processRow: row => Object
 				.keys(row)
 				.forEach(key => {
@@ -25,6 +25,7 @@ export default defineConfig({
 					}
 				}),
 		}),
+		analyzer(),
 		react(),
 	],
 	test: {

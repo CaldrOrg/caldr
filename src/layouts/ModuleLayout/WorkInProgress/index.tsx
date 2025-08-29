@@ -3,9 +3,8 @@ import { Link } from "react-router";
 
 export default function WorkInProgress({ }: WorkInProgressProps) {
 	return (
-		<article className="medium middle-align center-align middle">
+		<article className="center-align middle center large-width">
 			<div>
-
 				<IconBarrierBlock size={64} />
 				<h5>Work in Progress</h5>
 				<p>Check back soon!</p>
