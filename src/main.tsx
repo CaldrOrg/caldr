@@ -61,7 +61,7 @@ export function App() {
 	}, [mediaQueryList, handler, setTheme]);
 
 	return (
-		<BrowserRouter>
+		<BrowserRouter basename={import.meta.env.BASE_URL}>
 			<Routes>
 				<Route index element={<Home />} />
 				<Route path="fixtures" element={<Fixtures />} />
@@ -117,7 +117,7 @@ createRoot(document.getElementById("root")!)
 			<HelmetProvider>
 				<Helmet>
 					<title>Caldr</title>
-					<link rel="icon" href="/favicon.png" />
+					<link rel="icon" href="./favicon.png" />
 					<meta charSet="utf-8" />
 				</Helmet>
 				<App />

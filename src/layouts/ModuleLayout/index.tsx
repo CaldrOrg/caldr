@@ -30,7 +30,7 @@ export default function ModuleLayout({ children, moduleName, moduleDescription, 
 					</button>
 					<Link to="/">
 						<img
-							src={theme === "light" ? "/caldr_logo.png" : "/caldr_logo_dark.png"}
+							src={`${import.meta.env.BASE_URL}${theme === "light" ? "/caldr_logo.png" : "/caldr_logo_dark.png"}`}
 							alt="Caldr Logo"
 							height="50px" />
 					</Link>
@@ -58,7 +58,7 @@ export default function ModuleLayout({ children, moduleName, moduleDescription, 
 						<div className="tooltip bottom">Toggle Theme</div>
 					</button>
 					<Link
-						to="https://github.com/CaldrPro/caldr/tree/master"
+						to="https://github.com/CaldrOrg/caldr"
 						target="_blank">
 						<button className="circle transparent">
 							<IconBrandGithub />
