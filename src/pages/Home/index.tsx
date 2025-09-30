@@ -67,7 +67,7 @@ export default function Home({ }: HomeProps) {
 			</Helmet>
 
 			<img
-				src={`${import.meta.env.BASE_URL}${theme === "light" ? "/caldr_logo.png" : "/caldr_logo_dark.png"}`}
+				src={`${import.meta.env.BASE_URL}${theme === "light" ? "./caldr_logo.png" : "./caldr_logo_dark.png"}`}
 				alt="Caldr Logo"
 				className={styles.logo} />
 			<h1>Welcome to Caldr</h1>

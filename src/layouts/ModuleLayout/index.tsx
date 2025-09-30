@@ -30,7 +30,7 @@ export default function ModuleLayout({ children, moduleName, moduleDescription, 
 					</button>
 					<Link to="/">
 						<img
-							src={`${import.meta.env.BASE_URL}${theme === "light" ? "/caldr_logo.png" : "/caldr_logo_dark.png"}`}
+							src={`${import.meta.env.BASE_URL}${theme === "light" ? "./caldr_logo.png" : "./caldr_logo_dark.png"}`}
 							alt="Caldr Logo"
 							height="50px" />
 					</Link>
